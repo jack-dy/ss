@@ -104,7 +104,7 @@
                                     </div>
                                 </div>
                                 <div class="am-form-group">
-                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">商品重量(Kg) </label>
+                                    <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">商品重量(g) </label>
                                     <div class="am-u-sm-9 am-u-end">
                                         <input type="number" class="tpl-form-input" name="goods[goods_weight]"
                                                value="<?= $row['goods_weight'] ?>" required>

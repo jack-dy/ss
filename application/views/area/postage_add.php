@@ -16,16 +16,23 @@
                                 </div>
                             </div>
                             <div class="am-form-group">
-                                <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">首重价格（500g） </label>
+                                <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">首重价格（50g） </label>
                                 <div class="am-u-sm-9 am-u-end">
                                     <input type="number" class="tpl-form-input" name="postage[pt_price]"
                                             required>
                                 </div>
                             </div>
                             <div class="am-form-group">
-                                <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">续重价格（500g） </label>
+                                <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">续重价格（51g-100g） </label>
                                 <div class="am-u-sm-9 am-u-end">
                                     <input type="number" class="tpl-form-input" name="postage[pt_price_add]"
+                                            required>
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">续重价格2（100g以后每10g） </label>
+                                <div class="am-u-sm-9 am-u-end">
+                                    <input type="number" class="tpl-form-input" name="postage[pt_price_add2]"
                                             required>
                                 </div>
                             </div>

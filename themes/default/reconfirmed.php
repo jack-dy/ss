@@ -102,12 +102,13 @@
         // });
         $('.reconfirm').click(function(){
             $(this).css('pointer-events','none');
-            //ajax("<?=site_url('cart/toOrder')?>",'post','',back_finish);
+            ajax("<?=site_url('cart/toOrder')?>",'post','',back_finish);
         })
 
     })
     function back_finish(res){
         if(res.code===1){
+            //console.log(res);
             window.location.href=site_url+"order/finish";
         }else{
             $.show_error(res.msg);

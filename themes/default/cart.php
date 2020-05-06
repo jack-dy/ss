@@ -58,7 +58,7 @@
                                     <select class="user_country form-control"  id="country" name="cart[country]" style="">
                                         <option value="">select Country</option>
                                         <?php foreach($country as $k=>$item):?>
-                                        <option <?php if(!empty($cart_option['cy_id']) && $cart_option['cy_id']==$item['cy_id']):?>selected='selected'<?php endif;?> value="<?=$item['cy_id']?>"><?=$item['cy_name_en']?></option>
+                                        <option <?php if(!empty($cart_option['cart']) &&  !empty($cart_option['cart']['country']) &&$cart_option['cart']['country']==$item['cy_id']):?>selected='selected'<?php endif;?> value="<?=$item['cy_id']?>"><?=$item['cy_name_en']?></option>
                                         <?php endforeach;?>
                                     </select>
                                 </div>
@@ -66,22 +66,22 @@
                                     <p>* The postage varies according to the country</p>
                                 </div>
                                 <div class="col-lg-12 form-group">
-                                        <input class=" form-control" id="name" minlength="2" name="cart[name]"  placeholder="Name"  value="<?php if(!empty($cart_option['cart'])){echo $cart_option['cart']['name'];}?>"/>
+                                        <input class=" form-control" id="name" minlength="2" name="cart[name]"  placeholder="Name"  value="<?php  if(!empty($cart_option['cart']) && !empty($cart_option['cart']['name'])){echo $cart_option['cart']['name'];}?>"/>
                                 </div>
                                 <div class="col-lg-12 form-group">
-                                    <input class=" form-control" id="address" name="cart[address]"  placeholder="Shopping address" value="<?php if(!empty($cart_option['cart'])){echo $cart_option['cart']['address'];}?>"/>
+                                    <input class=" form-control" id="address" name="cart[address]"  placeholder="Shopping address" value="<?php if(!empty($cart_option['cart']) && !empty($cart_option['cart']['address'])){echo $cart_option['cart']['address'];}?>"/>
                                 </div>
                                 <div class="col-lg-12 form-group">
-                                    <input class=" form-control" id="email" name="cart[email]"  placeholder="Email" value="<?php if(!empty($cart_option['cart'])){echo $cart_option['cart']['email'];}?>"/>
+                                    <input class=" form-control" id="email" name="cart[email]"  placeholder="Email" value="<?php if(!empty($cart_option['cart']) && !empty($cart_option['cart']['email'])){echo $cart_option['cart']['email'];}?>"/>
                                 </div>
                                 <div class="col-lg-12 form-group">
-                                    <input class=" form-control" id="phone" name="cart[phone]"  placeholder="(201) 555-0123" value="<?php if(!empty($cart_option['cart'])){echo $cart_option['cart']['phone'];}?>"/>
+                                    <input class=" form-control" id="phone" name="cart[phone]"  placeholder="(201) 555-0123" value=""/>
                                     <span id="valid-msg" class="hide">✓</span>
                                     <span id="error-msg" class="hide">Invalid number</span>
                                     <input id="hidden" type="hidden"  name="phone_full">
                                 </div>
                                 <div class="col-lg-12 form-group">
-                                    <input class=" form-control" id="postal" name="cart[postal]" placeholder="Postal code" value="<?php if(!empty($cart_option['cart'])){echo $cart_option['cart']['postal'];}?>"/>
+                                    <input class=" form-control" id="postal" name="cart[postal]" placeholder="Postal code" value="<?php if(!empty($cart_option['cart']) && !empty($cart_option['cart']['postal'])){echo $cart_option['cart']['postal'];}?>"/>
                                 </div>
                                 <div class="col-xs-6  col-xs-offset-3">
                                     <button type="submit" class="check_out j-submit  form-control">Check Out</button>
@@ -135,13 +135,14 @@
         <script src="<?=base_url('public/js/jquery.form.min.js')?>"></script>
         <script src="<?=base_url('public/vendor/intlTelInput/js/intlTelInput.js')?>"></script>
         <script src="<?=base_url('public/js/jquery.validate.js')?>"></script>
-        <!-- <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script> -->
-        <!-- <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_en.js"></script> -->
         <script>
         var country = <?=json_encode($country)?>;
         var postage=<?=json_encode($postage)?>;
         var cart = <?=json_encode($cart)?>;
         var list = <?=json_encode($list)?>;
+        var cart_option = <?=json_encode($cart_option)?>;
+        var sel_rate = <?=json_encode($sel_rate)?>;
+        
         //console.log(list);
     $(function (){
         $.swiper({
@@ -150,102 +151,50 @@
         $.sortable({
             id:'#sortable'
         });
-        $(document).on('change','.user_country',function(){
-            var val=$(this).find("option:selected").val();
-            console.log(postage[country[val]['postage_pid']]);
-        })
-        $('.to_del').click(function(){
-            $goods_id=$(this).attr('goods_id');
-            $(this).css('pointer-events','none');
-            ajax('<?=site_url('cart/reduce')?>','post','goods_id='+$goods_id,back_del);
-        })
-        /**
-         * 表单验证提交
-         * @type {*}
-         */
-        $("#my-form").validate({
-                rules: {
-                    'cart[country]':{
-                        required: true,
-                    },
-                    'cart[name]': {
-                        required: true, //该项表示该字段为必填项
-                        minlength: 2 //表示该字段的最大长度为5
-                    },
-                    'cart[address]': {
-                        required: true,
-                    },
-                    'cart[email]': {
-                        required: true,
-                        email:true,
-                    },
-                    'cart[phone]': {
-                        required: true,
-                    }
-                },
-                messages: {
-                    'cart[country]':{
-                        required: "please select country",
-                    },
-                    'cart[name]': {
-                        required: 'Name  is required',
-                        minlength: "Please enter ata lest 3 characters"
-                    },
-                    'cart[address]': {
-                        required: 'Address  is required',
-                    },
-                    'cart[email]': {
-                        required: 'Email  is required',
-                        email:"Please enter a valid email address",
-                    },
-                    'cart[phone]': {
-                        required: 'Phone  is required',
-                    }
-                }   
-            });
+        
 
         
     })
     </script>
-    
+    <script src="<?=base_url('public/home/js/cart.js')?>"></script>
     <script>
-        function back_del(res){
-            if(res.code===1){
-                delete list[res.goods_id];
-                if(JSONLength(list)==0){
-                    $('.cart_box').remove();
-                    $('.empty_box').css('display','block');
-                }
-                $('.pd_'+res.goods_id).remove();
+        // function back_del(res){
+        //     if(res.code===1){
+        //         delete list[res.goods_id];
+        //         if(JSONLength(list)==0){
+        //             $('.cart_box').remove();
+        //             $('.empty_box').css('display','block');
+        //         }
+        //         $('.pd_'+res.goods_id).remove();
 
-            }
+        //     }
 
-        }
-        function JSONLength(obj) {
-            var size = 0, key;
-            for (key in obj) {
-            if (obj.hasOwnProperty(key)) size++;
-            }
-            return size;
-        };
-        function count(){
+        // }
+        // function JSONLength(obj) {
+        //     var size = 0, key;
+        //     for (key in obj) {
+        //     if (obj.hasOwnProperty(key)) size++;
+        //     }
+        //     return size;
+        // };
+        // function count(){
 
-        }
-        $.validator.setDefaults({
-            submitHandler: function() {
-                if($('#error-msg').hasClass('hide')){
+        // }
+        // $.validator.setDefaults({
+        //     submitHandler: function() {
+        //         if($('#error-msg').hasClass('hide')){
                     
-                }
-            alert("提交事件!");
-            }
-        });
+        //         }
+        //     alert("提交事件!");
+        //     }
+        // });
 
     var telInput = $("#phone"),
     errorMsg = $("#error-msg"),
     validMsg = $("#valid-msg");
 
     telInput.intlTelInput({
-    initialCountry: "<?php if(!empty($cart_option['cy_id'])){ echo $country[$cart_option['cy_id']]['cy_code'];}?>",
+    initialCountry: "<?php if(!empty($cart_option['cart']) && !empty($cart_option['cart']['country'])){ echo $country[$cart_option['cart']['country']]['cy_code'];}?>",
         utilsScript: "<?=base_url('public/vendor/intlTelInput/js/utils.js')?>"
     });
     var reset = function() {

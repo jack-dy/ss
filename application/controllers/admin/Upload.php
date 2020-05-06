@@ -74,7 +74,7 @@ class Upload extends CI_Controller{
             $config['width'] = intval($image_width*$min/$image_height);
         }else if($image_height<$image_width && $image_width>$min){
             $config['width'] = $min;
-            $config['widheightth'] = intval($image_height*$min/$image_width);
+            $config['height'] = intval($image_height*$min/$image_width);
         }
         $config['source_image'] = './uploads/' . $data['file_name'];
         $config['new_image'] ='./uploads/thumb/';

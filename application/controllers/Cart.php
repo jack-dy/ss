@@ -12,10 +12,8 @@ class Cart extends Home_Controller{
     $this->load->model('postage_model');
 
     }
-
-    public function index(){
+    protected function init(){
       $cart_option = $this->session->userdata('cart_option')?:array();
-      // print_r($cart_option);
       $rign = $this->session->userdata('rign')?:'USD';
       $rate = $this->rate_model->getRate();
       $country = $this->country_model->getTree();
@@ -30,7 +28,8 @@ class Cart extends Home_Controller{
       $calculation=array(
         'subototal'=>0.00,
         'postage'=>0.00,
-        'amount' =>0.00
+        'amount' =>0.00,
+        'all_weight'=>0
       );
       $all_weight=0;
 
@@ -52,25 +51,37 @@ class Cart extends Home_Controller{
             $list[$v['goods_id']]=$lists[$k];
             $calculation['subototal']+=floatval($v['goods_price'])*$sel_rate['rate'];
             $all_weight+=$v['goods_weight'];
+            $calculation['all_weight']= $all_weight;
           }
         }
       }
 
       //计算邮费
-      if(!empty($cart_option['cy_id'])){
-        if($all_weight<0.5 && $all_weight>0){
-          $calculation['postage']=sprintf("%01.2f",$postage[$country[$cart_option['cy_id']]['pt_pid']]['pt_price']*$sel_rate['rate']);
-        }else if($all_weight>0.5){
-          $calculation['postage']=sprintf("%01.2f",($postage[$country[$cart_option['cy_id']]['pt_pid']]['pt_price']+ceil(($all_weight-0.5)/0.5)*$postage[$country[$cart_option['cy_id']]['pt_pid']]['pt_price_add'])*$sel_rate['rate']);
+      if(!empty($cart_option['cart']) && !empty($cart_option['cart']['country']) ){
+        if($all_weight<=50 && $all_weight>0){
+          $calculation['postage']=sprintf("%01.2f",$postage[$country[$cart_option['cart']['country']]['postage_pid']]['pt_price']*$sel_rate['rate']);
+        }else if($all_weight>50 && $all_weight <=100){
+          $calculation['postage']=sprintf("%01.2f",($postage[$country[$cart_option['cart']['country']]['postage_pid']]['pt_price']+$postage[$country[$cart_option['cart']['country']]['postage_pid']]['pt_price_add'])*$sel_rate['rate']);
+        }else if($all_weight>100){
+          $calculation['postage']=sprintf("%01.2f",($postage[$country[$cart_option['cart']['country']]['postage_pid']]['pt_price']+$postage[$country[$cart_option['cart']['country']]['postage_pid']]['pt_price_add']+ceil(($all_weight-100)/10)*$postage[$country[$cart_option['cart']['country']]['postage_pid']]['pt_price_add2'])*$sel_rate['rate']);
         }
       }
       $calculation['subototal']= sprintf("%01.2f",$calculation['subototal']);
       $calculation['amount'] = sprintf("%01.2f",$calculation['subototal']+$calculation['postage']);
-        // if($all_weight){
+      return compact('cart','list','category','sel_rate','country', 'postage','cart_option','calculation');
+    }
 
-        // }
-        // echo $all_weight;
-
+    public function index(){
+      $init = $this->init();
+      $cart = $init['cart'];
+      $list = $init['list'];
+      $category = $init['category'];
+      $sel_rate = $init['sel_rate'];
+      $country = $init['country'];
+      $country = $init['country'];
+      $postage = $init['postage'];
+      $cart_option = $init['cart_option'];
+      $calculation = $init['calculation'];
       $like = $this->goods_model->getAllGoods(0,6);
         foreach($like as $k=>$v){
           
@@ -80,62 +91,16 @@ class Cart extends Home_Controller{
     }
 
     public function reconfirmed(){
-      $cart_option = $this->session->userdata('cart_option')?:array();
-      //print_r($cart_option);
-      $rign = $this->session->userdata('rign')?:'USD';
-      $rate = $this->rate_model->getRate();
-      $country = $this->country_model->getTree();
-      $postage= $this->postage_model->getCacheTree();
-      $sel_rate =array();
-      foreach($rate as $k=>$v){
-        if($v['name']==$rign){
-          $sel_rate=$v;
-        }
-      }
-
-      $calculation=array(
-        'subototal'=>0.00,
-        'postage'=>0.00,
-        'amount' =>0.00
-      );
-      $all_weight=0;
-
-      $cart=$this->cart;
-      $cart_ids = array();
-      $lists = array();
-      $list = array();
-      $category = $this->category_model->getCacheTree();
-      foreach($cart as $k=>$v){
-        $cart_ids[] =$k;
-      }
-      if(count($cart_ids)){
-        $lists = $this->goods_model->getAllGoods(0,0,$cart_ids);
-        if(count($lists)){
-          foreach($lists as $k=>$v){
-            
-            $lists[$k]['image']=explode(';',$v['goods_images']);
-            $lists[$k]['category_name']=$category[$v['category_id']]['name'];
-            $list[$v['goods_id']]=$lists[$k];
-            $calculation['subototal']+=floatval($v['goods_price'])*$sel_rate['rate'];
-            $all_weight+=$v['goods_weight'];
-          }
-        }
-      }
-
-      //计算邮费
-      if(!empty($cart_option['cy_id'])){
-        if($all_weight<0.5 && $all_weight>0){
-          $calculation['postage']=sprintf("%01.2f",$postage[$country[$cart_option['cy_id']]['pt_pid']]['pt_price']*$sel_rate['rate']);
-        }else if($all_weight>0.5){
-          $calculation['postage']=sprintf("%01.2f",($postage[$country[$cart_option['cy_id']]['pt_pid']]['pt_price']+ceil(($all_weight-0.5)/0.5)*$postage[$country[$cart_option['cy_id']]['pt_pid']]['pt_price_add'])*$sel_rate['rate']);
-        }
-      }
-      $calculation['subototal']= sprintf("%01.2f",$calculation['subototal']);
-      $calculation['amount'] = sprintf("%01.2f",$calculation['subototal']+$calculation['postage']);
-        // if($all_weight){
-
-        // }
-        // echo $all_weight;
+      $init = $this->init();
+      $cart = $init['cart'];
+      $list = $init['list'];
+      $category = $init['category'];
+      $sel_rate = $init['sel_rate'];
+      $country = $init['country'];
+      $country = $init['country'];
+      $postage = $init['postage'];
+      $cart_option = $init['cart_option'];
+      $calculation = $init['calculation'];
 
       $like = $this->goods_model->getAllGoods(0,6);
         foreach($like as $k=>$v){
@@ -186,10 +151,24 @@ class Cart extends Home_Controller{
     }
 
     public function toOrder(){
-      //$this->session->unset_userdata('cart');
-      echo json_encode(array('code'=>1,'msg'=>'提交成功'));
+      $init = $this->init();  
+      $this->load->model('order_model');
+      if($this->order_model->createOrder($init)){
+        //提交成功
+        $this->load->model('email_model');
+        $this->email_model->sendEmail($init);
+      //清除session
+      $this->session->unset_userdata('cart');
+        echo json_encode(array('code'=>1,'msg'=>'提交成功'));
+      }else{
+        //提交失败
+        echo json_encode(array('code'=>0,'msg'=>'提交失败'));
+      }
+
 
     }
+
+
 
 
 

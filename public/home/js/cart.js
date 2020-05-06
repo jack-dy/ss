@@ -52,16 +52,17 @@ function count(){
     }
     subototal = subototal.toFixed(2);
     if(cart_option['cart']['country']){
-        if(weight<0.5 && weight>0){
-            console.log(1);
-            postage_price = (parseFloat(postage[country[cart_option['cart']['country']]['pt_pid']]['pt_price'])*sel_rate['rate']).toFixed(2);
-        }else if(weight>0.5){
-            console.log(2);
-            postage_price =(parseFloat(postage[country[cart_option['cart']['country']]['pt_pid']]['pt_price'])*sel_rate['rate'] + Math.ceil((weight-0.5)/0.5)*parseFloat(postage[country[cart_option['cy_id']]['pt_pid']]['pt_price_add'])*sel_rate['rate'] ).toFixed(2);
-        }
+
+        if(weight<=50 && weight>0){
+            postage_price = (parseFloat(postage[country[cart_option['cart']['country']]['postage_pid']]['pt_price'])*sel_rate['rate']).toFixed(2);
+        }else if(weight>50 &&weight<=100){ 
+            postage_price =(parseFloat(postage[country[cart_option['cart']['country']]['postage_pid']]['pt_price'])*sel_rate['rate'] + parseFloat(postage[country[cart_option['cart']['country']]['postage_pid']]['pt_price_add'])*sel_rate['rate']) .toFixed(2);
+        }else if(weight>100){
+            
+            postage_price =(parseFloat(postage[country[cart_option['cart']['country']]['postage_pid']]['pt_price'])*sel_rate['rate'] + parseFloat(postage[country[cart_option['cart']['country']]['postage_pid']]['pt_price_add'])*sel_rate['rate'] +Math.ceil((weight-100)/10)*postage[country[cart_option['cart']['country']]['postage_pid']]['pt_price_add2']*sel_rate['rate']).toFixed(2);
+        } 
        
     }else{
-        console.log(3);
         postage_price =0;
     }
     amount=(parseFloat(postage_price)+parseFloat(subototal)).toFixed(2);
@@ -74,26 +75,21 @@ function count(){
     //     postage_price =0;
     // }
 }
-$.validator.setDefaults({
-    submitHandler: function() {
-        if($('#error-msg').hasClass('hide')){
-            data=$('#my-form').serialize();
-            ajax(site_url+"cart/submit", 'post',data,back_form);
-        }
-    //alert("提交事件!");
-    }
-});
+// $.validator.setDefaults({
+    
+// });
 
     
 
 $(function(){
     $(document).on('change','.user_country',function(){
         var val=$(this).find("option:selected").val();
-        if(cart_option['address'] === undefined ){
-            cart_option['address']=Array(); 
+        //console.log(cart_option['address']);
+        //console.log(postage[country[val]['postage_pid']]);
+        if(cart_option['cart'] === undefined ){
+            cart_option['cart']=Array(); 
         }
-        cart_option['address']['country']=val;
-        console.log(val);
+        cart_option['cart']['country']=val;
         ajax(site_url+'country/change_country','post','country='+val,back_change);
         count();
         
@@ -115,7 +111,7 @@ $(function(){
                 },
                 'cart[name]': {
                     required: true, //该项表示该字段为必填项
-                    minlength: 2 //表示该字段的最大长度为5
+                    minlength: 3 //表示该字段的最大长度为5
                 },
                 'cart[address]': {
                     required: true,
@@ -146,6 +142,13 @@ $(function(){
                 'cart[phone]': {
                     required: 'Phone  is required',
                 }
-            }   
+            },
+            submitHandler: function() {
+                if($('#error-msg').hasClass('hide')){
+                    data=$('#my-form').serialize();
+                    ajax(site_url+"cart/submit", 'post',data,back_form);
+                }
+            //alert("提交事件!");
+            }  
         });
 })

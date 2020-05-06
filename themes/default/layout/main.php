@@ -73,6 +73,6 @@
     
     <script src="<?=base_url('public/js/jquery.validate.js')?>"></script>
     <script src="<?=base_url('public/home/js/app.js')?>"></script>
-    <script src="<?=base_url('public/home/js/cart.js')?>"></script>
+    
 </body>
 </html>

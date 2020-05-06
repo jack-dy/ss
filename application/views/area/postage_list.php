@@ -24,7 +24,9 @@
                             <tr>
                                 <th>邮费地区ID</th>
                                 <th>邮费地区名称</th>
-                                <th>邮费地区排序</th>
+                                <th>首重（50g）</th>
+                                <th>续重（50g-100g）</th>
+                                <th>续重2（100g以后每10g）</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -33,7 +35,9 @@
                                 <tr>
                                     <td class="am-text-middle"><?= $first['pt_id'] ?></td>
                                     <td class="am-text-middle"><?= $first['pt_name'] ?></td>
-                                    <td class="am-text-middle"><?= $first['sort'] ?></td>
+                                    <td class="am-text-middle"><?= $first['pt_price'] ?></td>
+                                    <td class="am-text-middle"><?= $first['pt_price_add'] ?></td>
+                                    <td class="am-text-middle"><?= $first['pt_price_add2'] ?></td>
                                     <td class="am-text-middle">
                                         <div class="tpl-table-black-operation">
 
