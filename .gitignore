@@ -3,5 +3,5 @@ public/sess_save_path/*
 application/cache/*
 #application/config/database.php
 #application/config/constants.php
-application/config/*
+application/config/
 .vscode/*
