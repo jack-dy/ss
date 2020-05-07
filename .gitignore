@@ -1,8 +1,0 @@
-uploads/*
-public/sess_save_path/*
-application/cache/*
-#application/config/database.php
-#application/config/constants.php
-
-.vscode/*
-application/config/database.php
