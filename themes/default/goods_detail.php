@@ -29,7 +29,13 @@
                     <div class="product_content">
                         <h3 class="product_name"><?=$goods['goods_name']?></h3>
                         <p class="product_title"><?=$goods['content']?></p>
-
+                        <?php if(!empty($goods['goodsStyle'])):?>
+                        <ul>
+                            <?php foreach($goods['goodsStyle'] as $v):?>
+                                <li><?=$goods_style[$v]['goodsStyle_name']?></li>
+                            <?php endforeach;?>
+                        </ul>
+                            <?php endif;?>
                         <p class="product_price">
                                 <select  name="rate" class="rate" id="">
                         <?php foreach($rate as $k=>$item):?>

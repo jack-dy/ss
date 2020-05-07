@@ -158,6 +158,15 @@ class Adminmenu {
                             'admin/goods_category/edit'
                         )
                     ),
+                    array(
+                        'name' =>'商品风格',
+                        'index' => 'admin/goods_style/index',
+                        'uris' =>array(
+                            'admin/goods_style/index',
+                            'admin/goods_style/add',
+                            'admin/goods_style/edit'
+                        )
+                    )
                     
                     // array(
                     //     'name' => '商品/卡片列表',

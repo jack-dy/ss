@@ -21,9 +21,9 @@
                             <div class="item">
                                 <p class="pd_name"><?=$item['goods_name']?></p>
                             </div>
-                            <div class="item">
+                            <!-- <div class="item">
                                 <p class="pd_type"><?=$item['category_name']?></p>
-                            </div>
+                            </div> -->
                             <div class="item">
                                 <h4 class="pd_price text-right"><?=$sel_rate['name']." ".sprintf("%01.2f",$sel_rate['rate']*$item['goods_price'])?></h4>
                             </div>
@@ -32,7 +32,7 @@
                     </ul>
                     <div class="cart_totle">
                         <div class="row p15">
-                            <div class="col-sm-10 col-xs-8 text-right">Cart subototal:</div>
+                            <div class="col-sm-10 col-xs-8 text-right">Subototal:</div>
                             <div class="col-sm-2 col-xs-4 text-left"><?=$sel_rate['name']?><span class="ml10 subototal"><?=$calculation['subototal']?></span> </div>
                             <div class="col-sm-10 col-xs-8 text-right">Postage:</div>
                             <div class="col-sm-2 col-xs-4 text-left"><?=$sel_rate['name']?><span class="ml10 postage"><?=$calculation['postage']?></div>

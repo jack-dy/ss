@@ -844,6 +844,13 @@ ul.tpl-dropdown-content .tpl-dropdown-menu-messages-item .menu-messages-content 
     font-size: 12px; }
 .tpl-form-line-form .am-form-error .am-form-label {
   color: #dd514c; }
+  .tpl-form-line-form .am-form-label2{
+    padding-top: .8rem;
+  font-size: 1.34rem;
+  color: #656565;
+  font-weight: inherit;
+  margin-right: 10px;
+  }
 
 .tpl-form-line-form .am-form-group:after,
 .tpl-form-line-form .am-form-group:before {
@@ -1679,14 +1686,21 @@ input[type=range]::-webkit-slider-thumb {
       width: 72px;
       height: 72px; }
   .goods-detail .goods-info {
-    width: 250px; }
+    /* width: 250px;  */
+    display: flex;
+  }
     .goods-detail .goods-info p {
       display: block;
       white-space: normal;
       margin: 0 0 0.3rem 0;
       padding: 0 0.5rem;
       font-size: 1.3rem;
-      text-align: left; }
+      text-align: left; 
+    
+    }
+    .goods-detail .goods-info img{
+      height: 70px;
+    }
       .goods-detail .goods-info p.goods-title {
         height: 40px;
         overflow: hidden;

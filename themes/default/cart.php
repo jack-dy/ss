@@ -21,9 +21,9 @@
                             <div class="item">
                                 <p class="pd_name"><?=$item['goods_name']?></p>
                             </div>
-                            <div class="item">
+                            <!-- <div class="item">
                                 <p class="pd_type"><?=$item['category_name']?></p>
-                            </div>
+                            </div> -->
                             <div class="item">
                                 <p class="to_del" goods_id=<?=$item['goods_id']?>><i class="fa fa-trash"></i> Remove</p>
                             </div>
@@ -35,7 +35,7 @@
                     </ul>
                     <div class="cart_totle">
                         <div class="row p15">
-                            <div class="col-sm-10 col-xs-8 text-right">Cart subototal:</div>
+                            <div class="col-sm-10 col-xs-8 text-right">Subototal:</div>
                             <div class="col-sm-2 col-xs-4 text-left"><?=$sel_rate['name']?><span class="ml10 subototal"><?=$calculation['subototal']?></span> </div>
                             <div class="col-sm-10 col-xs-8 text-right">Postage:</div>
                             <div class="col-sm-2 col-xs-4 text-left"><?=$sel_rate['name']?><span class="ml10 postage"><?=$calculation['postage']?></div>
@@ -57,7 +57,7 @@
                                 <div class="col-lg-12 form-group">
                                     <select class="user_country form-control"  id="country" name="cart[country]" style="">
                                         <option value="">select Country</option>
-                                        <?php foreach($country as $k=>$item):?>
+                                        <?php $code =array(); foreach($country as $k=>$item): $code[]=strtolower($item['cy_code']);?>
                                         <option <?php if(!empty($cart_option['cart']) &&  !empty($cart_option['cart']['country']) &&$cart_option['cart']['country']==$item['cy_id']):?>selected='selected'<?php endif;?> value="<?=$item['cy_id']?>"><?=$item['cy_name_en']?></option>
                                         <?php endforeach;?>
                                     </select>
@@ -195,7 +195,8 @@
 
     telInput.intlTelInput({
     initialCountry: "<?php if(!empty($cart_option['cart']) && !empty($cart_option['cart']['country'])){ echo $country[$cart_option['cart']['country']]['cy_code'];}?>",
-        utilsScript: "<?=base_url('public/vendor/intlTelInput/js/utils.js')?>"
+        utilsScript: "<?=base_url('public/vendor/intlTelInput/js/utils.js')?>",
+        onlyCountries: <?=json_encode($code)?>
     });
     var reset = function() {
         telInput.removeClass("error");

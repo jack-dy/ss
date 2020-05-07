@@ -39,8 +39,33 @@ class Order extends Admin_Controller{
      */
     private function getList($title, $dataType)
     {
+        $role=$this->role();
+        $page = $this->input->get('page')?: 1;
+
+
         $list = $this->order_model->getList($dataType);
-        print_r($list);
+        foreach($list as $k=>$v){
+            $temp_goods_name =  explode(';',$v['goods_name']);
+            $temp_image =  explode(';',$v['image']);
+            $temp_total_num =  explode(';',$v['total_num']);
+            $temp_goods_price =  explode(';',$v['goods_price']);
+            $list[$k]['goods']=array();
+            for($i=0;$i<count($temp_goods_name);$i++){
+                $arr = array(
+                    'goods_name'=>$temp_goods_name[$i],
+                    'image'=>$temp_image[$i],
+                    'total_num'=>$temp_total_num[$i],
+                    'goods_price'=>$temp_goods_price[$i]
+                );
+                $list[$k]['goods'][]=$arr;
+            }
+            // unset($list[$k]['goods_name']);
+            // unset($list[$k]['image']);
+            // unset($list[$k]['total_num']);
+            // unset($list[$k]['goods_price']);
+        }
+
+        return $this->render('order_list.php',compact('list', 'title', 'dataType'),$role);
         //return $this->fetch('index', compact('title', 'dataType', 'list'));
     }
 

@@ -59,7 +59,7 @@ class Email_model extends CI_Model{
                 $body.='</ul>
                 <div class="cart_totle">
                     <div class="row p15">
-                        <div class="col-sm-10 col-xs-8 text-right">Cart subototal:</div>
+                        <div class="col-sm-10 col-xs-8 text-right">Subototal:</div>
                         <div class="col-sm-2 col-xs-4 text-left">'.$sel_rate['name'].'<span class="ml10 subototal">'.$calculation['subototal'].'</span> </div>
                         <div class="col-sm-10 col-xs-8 text-right">Postage:</div>
                         <div class="col-sm-2 col-xs-4 text-left">'.$sel_rate['name'].'<span class="ml10 postage">'.$calculation['postage'].'</div>

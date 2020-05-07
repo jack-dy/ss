@@ -105,6 +105,24 @@ class Goods_model extends CI_Model{
         $where['is_delete']=0;
         return $this->db->where($where)->count_all_results(self::TBL_GOODS);
     }
+    //获取风格数量
+    public function getGoodsStyleTotal($id){
+        $where=array(
+            'is_delete'=>0
+        );
+        $lists = $this->db->like('goodsStyle_id', $id, 'both')->where($where)->get(self::TBL_GOODS)->result_array();
+        $count = 0;
+        foreach($lists as $list){
+            if($list['goodsStyle_id']!=''){
+                $goodsStyle = explode(',',$list['goodsStyle_id']);
+                if(in_array($id,$goodsStyle)){
+                    $count+=1;
+                }
+            }
+        }
+        return $count;
+
+    }
 
     //添加产品
     public function add($data=array()){
