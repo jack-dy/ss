@@ -48,8 +48,8 @@
                             <div class="am-form-group">
                                 <label class="am-u-sm-3 am-u-lg-2 am-form-label">商品风格 </label>
                                 <div class="am-u-sm-6 ">
-                                    <?php foreach($goods_style as $key=>$item):?>
-                                    <input type="checkbox" <?php if(in_array($key,$row['goodsStyle'])):?>checked<?php endif;?> name="goods[goodsStyle][]" value="<?=$key?>" id="goods_style_<?=$key?>"><label class="am-form-label2" for="goods_style_<?=$key?>"><?=$item['goodsStyle_name']?></label>
+                                    <?php foreach($style as $key=>$item):?>
+                                    <input type="checkbox" <?php if(in_array($key,$row['style_id'])):?>checked<?php endif;?> name="goods[style_id][]" value="<?=$key?>" id="style_<?=$key?>"><label class="am-form-label2" for="style_<?=$key?>"><?=$item['name']?></label>
                                     <?php endforeach;?>
                                 </div>
                                 <div class="am-u-sm-3 am-u-end">

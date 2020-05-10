@@ -61,7 +61,7 @@ class Style_model extends CI_Model{
 		$this->my_cache->delete('style');
 		$data['create_time']=time();
 		$data['update_time']=time();
-		return $this->db->insert(self::TBL_GOODS_STYLE,$data);
+		return $this->db->insert(self::TBL_STYLE,$data);
 	}
 
 	//更改
@@ -87,7 +87,7 @@ class Style_model extends CI_Model{
 		
 		// 判断是否存在商品
 		$this->load->model('goods_style_model');
-		if ($goodsCount = $this->goods_model->getGoodsStyleTotal(compact('style_id'))) {
+		if ($goodsCount = $this->goods_style_model->getGoodsStyleTotal(compact('style_id'))) {
 			$msg = '该风格下存在' . $goodsCount . '个商品，不允许删除';
 			return $msg;
 		}else{

@@ -32,18 +32,18 @@
                             <tbody>
                             <?php if (!empty($list)): foreach ($list as $first): ?>
                                 <tr>
-                                    <td class="am-text-middle"><?= $first['goodsStyle_id'] ?></td>
-                                    <td class="am-text-middle"><?= $first['goodsStyle_name'] ?></td>
+                                    <td class="am-text-middle"><?= $first['style_id'] ?></td>
+                                    <td class="am-text-middle"><?= $first['name'] ?></td>
                                     <td class="am-text-middle"><?= $first['sort'] ?></td>
                                     <td class="am-text-middle"><?= $first['create_time'] ?></td>
                                     <td class="am-text-middle">
                                         <div class="tpl-table-black-operation">
 
-                                                <a href="<?= site_url('admin/goods_style/edit?goodsStyle_id='.$first['goodsStyle_id']) ?>">
+                                                <a href="<?= site_url('admin/goods_style/edit?style_id='.$first['style_id']) ?>">
                                                     <i class="am-icon-pencil"></i> 编辑
                                                 </a>
                                                 <a href="javascript:;" class="item-delete tpl-table-black-operation-del"
-                                                   data-id="<?= $first['goodsStyle_id'] ?>">
+                                                   data-id="<?= $first['style_id'] ?>">
                                                     <i class="am-icon-trash"></i> 删除
                                                 </a>
                                         </div>
@@ -66,7 +66,7 @@
     $(function () {
         // 删除元素
         var url = "<?= site_url('admin/goods_style/delete') ?>";
-        $('.item-delete').delete('goodsStyle_id', url);
+        $('.item-delete').delete('style_id', url);
 
     });
 </script>

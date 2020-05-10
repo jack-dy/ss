@@ -83,7 +83,6 @@
                                 <th>实际销量</th> -->
                                 <th>商品排序</th>
                                 <th>商品状态</th>
-                                <th>添加时间</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -112,7 +111,6 @@
                                                <?=  $item['goods_status'] == 10 ? '上架' : '下架' ?>
                                            </span>
                                     </td>
-                                    <td class="am-text-middle"><?= $item['create_time'] ?></td>
                                     <td class="am-text-middle">
                                         <div class="tpl-table-black-operation">
                                                 <a href="<?=site_url('admin/goods/edit?goods_id='.$item['goods_id'])   ?>">

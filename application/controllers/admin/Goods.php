@@ -6,6 +6,7 @@ class Goods extends Admin_Controller{
     $this->load->model('category_model');
     $this->load->model('goods_model');
     $this->load->model('goods_style_model');
+    $this->load->model('style_model');
     $this->load->library('pagination');
     }
 
@@ -46,17 +47,15 @@ class Goods extends Admin_Controller{
         $role=$this->role();
         // 商品分类
         $category = $this->category_model->getCacheTree();
-        $goods_style=$this->goods_style_model->getCacheTree();
-        return $this->render('goods_add.php',compact('category','goods_style'),$role);
+        $style=$this->style_model->getCacheTree();
+        return $this->render('goods_add.php',compact('category','style'),$role);
       }
       $post = $this->input->post('goods');
-      if(!empty($post['goodsStyle'])){
-        $post['goodsStyle_id'] = implode(',',$post['goodsStyle']);
-        unset($post['goodsStyle']);
+      if(!empty($post['style_id'])){
       }else{
-        $post['goodsStyle_id']='';
+        $post['style_id']=array();
       }
-      if($this->goods_model->add($post)){
+      if($this->goods_model->creatGoods($post)){
         echo json_encode(array('code'=>1,'msg'=>'添加成功','url'=>site_url('admin/goods/index')));
       }else{
         echo json_encode(array('code'=>0,'msg'=>'添加失败'));
@@ -70,18 +69,17 @@ class Goods extends Admin_Controller{
         $role=$this->role();
         // 商品分类
         $category = $this->category_model->getCacheTree();
-        $goods_style=$this->goods_style_model->getCacheTree();
+        $style=$this->style_model->getCacheTree();
         $row = $this->goods_model->get(compact('goods_id') );
         $row['image']=explode(';',$row['goods_images']);
-        $row['goodsStyle']=explode(',',$row['goodsStyle_id']);
-        return $this->render('goods_edit.php',compact('row','category','goods_style'),$role);
+        $row['style_id']=explode(';',$row['style_ids']);
+        return $this->render('goods_edit.php',compact('row','category','style'),$role);
       }
         $post = $this->input->post('goods');
-       if(!empty($post['goodsStyle'])){
-        $post['goodsStyle_id'] = implode(',',$post['goodsStyle']);
-        unset($post['goodsStyle']);
+       if(!empty($post['style_id'])){
+       
       }else{
-        $post['goodsStyle_id']='';
+        $post['style_id']=array();
       }
       if($this->goods_model->edit($post,compact('goods_id'))){
         echo json_encode(array('code'=>1,'msg'=>'更改成功','url'=>site_url('admin/goods/index')));

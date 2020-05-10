@@ -32,7 +32,7 @@ class Goods_style extends Admin_Controller{
 
     //更改
     public function edit(){
-      $goodsStyle_id =$this->input->get('style_id')? :null;
+      $style_id =$this->input->get('style_id')? :null;
       if(!IS_AJAX){
         $role=$this->role();
         $row = $this->style_model->get(compact('style_id') );
@@ -56,6 +56,8 @@ class Goods_style extends Admin_Controller{
         echo json_encode(array('code'=>0,'msg'=>$res));
       }
     }
+
+
 
 
 }

@@ -7,7 +7,7 @@
 class Goods_model extends CI_Model{
 
 	const TBL_GOODS = 'goods';
-
+    const TBL_GOODS_STYLE = 'goods_style';
 
 	public function getList($status = null, $category_id = 0, $search = '', $page=1, $sortType = 'all', $sortPrice = false, $listRows = 15){
 		//return $this->db->get('category')->result_array();
@@ -54,12 +54,46 @@ class Goods_model extends CI_Model{
         if($limit!=0){
             $this->db->limit($limit,0);
         }
-        if(count($in)){
+        if(count($in)>0){
             $this->db->where_in('goods_id',$in);
         }
         $list =$this->db->select('*, "goods" as type')->where($where)->order_by('sort','desc')->get(self::TBL_GOODS)->result_array();
         return $list;
     }
+
+    
+
+
+    //获取全部产品
+    public function getAllStyleGoods($styleid=0,$limit=0){
+        $where=array(
+            'goods_status'=>'10',
+            'is_delete'=>0
+         );
+         $aa =1;
+        if($styleid!=0){
+             $goodsStyle = $this->db->where('style_id',$styleid)->get(self::TBL_GOODS_STYLE)->result_array();
+             $in = array();
+             foreach($goodsStyle as $key=>$item){
+                 $in[]=$item['goods_id'];
+                 //$in[$key]=$item['goods_id'];
+                //return $item['goods_id'];
+             }
+            // $aa =$this->db->last_query();
+            
+        }
+        if($limit!=0){
+            $this->db->limit($limit,0);
+        }
+        if(count($in)>0){
+            return $this->db->select('*, "goods" as type')->where($where)->where_in('goods_id',$in)->order_by('sort','desc')->get(self::TBL_GOODS)->result_array();
+        }else{
+            return array();
+        }
+        // $list =$this->db->select('*, "goods" as type')->where($where)->order_by('sort','desc')->get(self::TBL_GOODS)->result_array();
+        // return $list;
+    }
+
 
     //获取产品详情
     public function getDetail($id){
@@ -94,10 +128,32 @@ class Goods_model extends CI_Model{
 
     //获取
 	public function get($data=array()){
-		return $this->db
-			->where($data)
-			->get(self::TBL_GOODS)
-			->row_array();
+        $data['goods.goods_id'] =$data['goods_id'];
+        unset($data['goods_id']);
+        $select = array(
+            'goods.goods_id',
+            'goods_name',
+            'category_id',
+            'content',
+            'goods_images',
+            'goods_no',
+            'goods_price',
+            'stock_num',
+            'goods_weight',
+            'sort',
+            'goods_status',
+            'is_delete',
+            'GROUP_CONCAT(style_id SEPARATOR ";") as style_ids'
+        );
+        return $this->db
+            ->select($select)
+            ->from(self::TBL_GOODS)
+            ->join(self::TBL_GOODS_STYLE,'goods.goods_id = goods_style.goods_id','left')
+            ->where($data)
+            ->group_by('goods.goods_id')
+			->get()
+            ->row_array();
+        //return $this->db->last_query();
 	}
     
     //获取货物数量
@@ -123,31 +179,90 @@ class Goods_model extends CI_Model{
         return $count;
 
     }
-
-    //添加产品
-    public function add($data=array()){
+    public function creatGoods($data=array()){
         if (!isset($data['images']) || empty($data['images'])) {
             $this->error = '请上传商品图片';
             return false;
         }
         $data['goods_images']=implode(';',$data['images']);
-        unset($data['images']);
+        
         $data['create_time']=time();
-		$data['update_time']=time();
-		return $this->db->insert(self::TBL_GOODS,$data);
-
+        $data['update_time']=time();
+        $styles = $data['style_id'];
+        unset($data['images']);
+        unset($data['style_id']);
+        //开启事务
+        $this->db->trans_begin();
+        $goods_id = $this->add($data);
+        if(count($styles)>0){
+            $this->saveGoodsStyle($goods_id,$styles);
+        }
+        if ($this->db->trans_status() === FALSE){
+            $this->db->trans_rollback();
+            return false;
+        }else{
+            $this->db->trans_commit();
+            return true;
+        }
     }
 
     //更改
 	public function edit($data=array(),$where=array()){
+        if (!isset($data['images']) || empty($data['images'])) {
+            $this->error = '请上传商品图片';
+            return false;
+        }
         $data['goods_images']=implode(';',$data['images']);
+        $styles = $data['style_id'];
         unset($data['images']);
-		$data['update_time']=time();
-		return $this->db
-				->set($data)
-				->where($where)
-				->update(self::TBL_GOODS);
+        unset($data['style_id']);
+        //开启事务
+        $this->db->trans_begin();
+        $data['update_time']=time();
+        $this->update($data,$where);
+        $goods_id = $where['goods_id'];
+        $this->delGoodsStyle($goods_id);
+        if(count($styles)>0){
+            $this->saveGoodsStyle($goods_id,$styles);
+        }
+        
+
+        if ($this->db->trans_status() === FALSE){
+            $this->db->trans_rollback();
+            return false;
+        }else{
+            $this->db->trans_commit();
+            return true;
+        }
     }
+
+    //添加产品
+    private function add($data=array()){
+        $this->db->insert(self::TBL_GOODS,$data);
+        return $this->db->insert_id(self::TBL_GOODS);
+    }
+    private function saveGoodsStyle($goods_id, $styles){
+        $goodsStyle = array();
+        foreach($styles as $style){
+            $goodsStyle[]=array(
+                'goods_id'=>$goods_id,
+                'style_id'=>$style,
+                'create_time'=>time()
+            );
+        }
+        return $this->db->insert_batch(self::TBL_GOODS_STYLE,$goodsStyle);
+    }
+    private function delGoodsStyle($goods_id){
+        return $this->db->where('goods_id',$goods_id)->delete(self::TBL_GOODS_STYLE);
+    }
+    //
+    private function update($data=array(),$where=array()){
+        return $this->db
+        ->set($data)
+        ->where($where)
+        ->update(self::TBL_GOODS);
+    }
+
     //更改上下架 
     public function state($data=array(),$where=array()){
         return $this->db

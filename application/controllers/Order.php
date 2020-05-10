@@ -6,10 +6,10 @@ class Order extends Home_Controller{
     $this->cart = $this->session->userdata('cart')?:array();
 
     }
-    public function index(){
-      $this->config->load('email', TRUE);
-      $config_email = $this->config->item('email');
-    }
+    // public function index(){
+    //   $this->config->load('email', TRUE);
+    //   $config_email = $this->config->item('email');
+    // }
     public function finish(){
       $cart=$this->cart;
       $this->render('order_finish',compact('cart'));

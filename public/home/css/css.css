@@ -515,6 +515,11 @@ header.content-header {
 .text-blck{
     color: #000;
 }
+.empty_box1{
+    height: 30px;
+    border-bottom: 1px solid #ccc;
+    display: block;
+}
 
 @media (min-width: 768px) {
     body{

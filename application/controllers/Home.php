@@ -7,6 +7,7 @@ class Home extends Home_Controller{
     $this->load->model('category_model');
     $this->load->model('goods_model');
     $this->load->model('card_model');
+    $this->load->model('style_model');
     $this->cart = $this->session->userdata('cart')?:array();
     //$this->load->model('goods_model');
     }
@@ -19,10 +20,11 @@ class Home extends Home_Controller{
         $goods[$k]['image']=explode(';',$v['goods_images']);
       }
       $card = $list = $this->card_model->getAllCard();
+      $style = $this->style_model->getCacheTree();
       $list = $this->arraySort(array_merge($goods,$card),'sort','asc');
       $category = $this->category_model->getCacheTree();
       //$list =$this->arraySort($list,'sort','asc');
-      $this->render('index',compact('cart','list','category'));
+      $this->render('index',compact('cart','list','category','style'));
         
     }
 }

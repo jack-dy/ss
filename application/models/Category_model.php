@@ -113,9 +113,9 @@ class Category_model extends CI_Model{
 	public function remove($category_id){
 		
 		// 判断是否存在商品
-		$where =array('category_id'=>$category_id);
+		$where =array('category_id'=>$category_id,);
 		$this->load->model('goods_model');
-		if ($goodsCount = $this->goods_model->getCountryTotal($where)) {
+		if ($goodsCount = $this->goods_model->getGoodsTotal($where)) {
 			$msg = '该分类下存在' . $goodsCount . '个商品，不允许删除';
 			return $msg;
 		}else{

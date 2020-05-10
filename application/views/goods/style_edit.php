@@ -11,8 +11,8 @@
                             <div class="am-form-group">
                                 <label class="am-u-sm-3 am-u-lg-2 am-form-label form-require">风格名称 </label>
                                 <div class="am-u-sm-9 am-u-end">
-                                    <input type="text" class="tpl-form-input" name="goods_style[goodsStyle_name]"
-                                           value="<?= $row['goodsStyle_name'] ?>" required>
+                                    <input type="text" class="tpl-form-input" name="goods_style[name]"
+                                           value="<?= $row['name'] ?>" required>
                                 </div>
                             </div>
                             <div class="am-form-group">

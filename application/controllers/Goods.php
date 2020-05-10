@@ -6,14 +6,15 @@ class Goods extends Home_Controller{
 		parent::__construct();
     $this->load->model('category_model');
     $this->load->model('goods_model');
-    $this->load->model('goods_style_model');
     $this->load->model('rate_model');
+    $this->load->model('style_model');
     $this->cart = $this->session->userdata('cart')?:array();
     }
 
     public function index(){
       $id = $this->input->get('id');
       $category = $this->category_model->getCacheTree();
+      $style = $this->style_model->getCacheTree();
       $list = $this->goods_model->getAllGoods($id);
       foreach($list as $k=>$v){
         $list[$k]['image']=explode(';',$v['goods_images']);
@@ -21,7 +22,7 @@ class Goods extends Home_Controller{
       $cart=$this->cart;
       //print_r($category);
       $title=$category[$id]['name'];
-        $this->render('goods',compact('cart', 'title', 'cart_num','list','category'));
+        $this->render('goods',compact('cart', 'title', 'cart_num','list','category','style'));
     }
 
     public function detail(){
@@ -29,11 +30,11 @@ class Goods extends Home_Controller{
       $id = $this->input->get('id');
       $rate = $this->rate_model->getRate();
       $category = $this->category_model->getCacheTree();
+      $style = $this->style_model->getCacheTree();
       $like = $this->goods_model->getAllGoods(0,6);
       foreach($like as $k=>$v){
         $like[$k]['image']=explode(';',$v['goods_images']);
       }
-      $goods_style=$this->goods_style_model->getCacheTree();
       $cart=$this->cart;
       $goods = $this->goods_model->getDetail($id);
       if(!empty($goods)){
@@ -42,7 +43,7 @@ class Goods extends Home_Controller{
           $goods['goodsStyle']=explode(',',$goods['goodsStyle_id']);
         }
         
-        $this->render('goods_detail',compact('cart','category','goods','like','rate','goods_style','rign'));
+        $this->render('goods_detail',compact('cart','category','goods','like','rate','style','rign'));
       }else{
         redirect('home/index');
       }

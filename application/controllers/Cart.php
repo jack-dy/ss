@@ -10,6 +10,7 @@ class Cart extends Home_Controller{
     $this->load->model('rate_model');
     $this->load->model('country_model');
     $this->load->model('postage_model');
+    $this->load->model('style_model');
 
     }
     protected function init(){
@@ -18,6 +19,7 @@ class Cart extends Home_Controller{
       $rate = $this->rate_model->getRate();
       $country = $this->country_model->getTree();
       $postage= $this->postage_model->getCacheTree();
+      $style = $this->style_model->getCacheTree();
       $sel_rate =array();
       foreach($rate as $k=>$v){
         if($v['name']==$rign){
@@ -68,7 +70,7 @@ class Cart extends Home_Controller{
       }
       $calculation['subototal']= sprintf("%01.2f",$calculation['subototal']);
       $calculation['amount'] = sprintf("%01.2f",$calculation['subototal']+$calculation['postage']);
-      return compact('cart','list','category','sel_rate','country', 'postage','cart_option','calculation');
+      return compact('cart','list','category','sel_rate','country', 'postage','cart_option','calculation','style');
     }
 
     public function index(){
@@ -82,12 +84,13 @@ class Cart extends Home_Controller{
       $postage = $init['postage'];
       $cart_option = $init['cart_option'];
       $calculation = $init['calculation'];
+      $style = $init['style'];
       $like = $this->goods_model->getAllGoods(0,6);
         foreach($like as $k=>$v){
           
           $like[$k]['image']=explode(';',$v['goods_images']);
         }
-      $this->render('cart',compact('cart','list','like','category','sel_rate','country', 'postage','cart_option','calculation'));
+      $this->render('cart',compact('cart','list','like','category','sel_rate','country', 'postage','cart_option','calculation','style'));
     }
 
     public function reconfirmed(){
@@ -101,13 +104,14 @@ class Cart extends Home_Controller{
       $postage = $init['postage'];
       $cart_option = $init['cart_option'];
       $calculation = $init['calculation'];
+      $style = $init['style'];
 
       $like = $this->goods_model->getAllGoods(0,6);
         foreach($like as $k=>$v){
           
           $like[$k]['image']=explode(';',$v['goods_images']);
         }
-      $this->render('reconfirmed',compact('cart','list','like','category','sel_rate','country', 'postage','cart_option','calculation'));
+      $this->render('reconfirmed',compact('cart','list','like','category','sel_rate','country', 'postage','cart_option','calculation','style'));
     }
 
     // /**

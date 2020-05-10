@@ -54,7 +54,12 @@
                         <a class="nav-link page-scroll" href="<?=site_url('goods/index')."?id=".$item['category_id']?>"><?=$item['name']?></a>
                     </li>
                     <?php endforeach;?>
-                                
+                    <div class="empty_box1"></div>
+                    <?php foreach($style as $item):?>  
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll" href="<?=site_url('style/index')."?id=".$item['style_id']?>"><?=$item['name']?></a>
+                    </li>      
+                    <?php endforeach;?>       
             </ul>
         <!-- </div> -->
     </nav>
