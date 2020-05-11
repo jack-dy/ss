@@ -99,6 +99,31 @@
             });
         },
 
+        /* 支付
+        
+        */
+       topay: function (index, url, msg) {
+        $(this).click(function () {
+            var param = {};
+            param[index] = $(this).attr('data-id');
+            layer.confirm(msg ? msg : '确定要手动支付吗？', {title: '友情提示'}
+                , function (index) {
+                    $.ajax({
+                        type: "POST",
+                        url: url,  //同目录下的php文件
+                        data:param,  // 等号前后不要加空格
+                        dataType:"JSON",
+                        success: function(result){  //请求成功后的回调函数
+                            result.code === 1 ? $.show_success(result.msg, result.url)
+                            : $.show_error(result.msg);
+                        }
+                    })
+                    layer.close(index);
+                }
+            );
+        });
+    },
+
         /**
          * 选择图片文件
          * @param option

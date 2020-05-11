@@ -15,12 +15,14 @@
                                     <div class="am-form-group tpl-form-border-form am-fl">
                                         <input type="text" name="start_time"
                                                class="am-form-field"
+                                               autocomplete="off"
                                                value="<?= $this->input->get('start_time') ?: ''; ?>" placeholder="请选择起始日期"
                                                data-am-datepicker>
                                     </div>
                                     <div class="am-form-group tpl-form-border-form am-fl">
                                         <input type="text" name="end_time"
                                                class="am-form-field"
+                                               autocomplete="off"
                                                value="<?= $this->input->get('end_time') ?: ''; ?>" placeholder="请选择截止日期"
                                                data-am-datepicker>
                                     </div>
@@ -68,22 +70,23 @@
                                 foreach ($order['goods'] as $goods): $i++;  ?>
                                     <tr>
                                         <td class="goods-detail am-text-middle">
-                                            <div class="goods-image">
+                                            <!-- <div class="goods-image">
                                                 <img src="<?= $goods['image'] ?>" alt="">
-                                            </div>
+                                            </div> -->
                                             <div class="goods-info">
+                                            <a href="<?=base_url('uploads/thumb/').$goods['image']?>" target="_block"><img src="<?=base_url('uploads/thumb/').$goods['image']?>" alt=""></a>
                                                 <p class="goods-title"><?= $goods['goods_name'] ?></p>
-                                                <a href="<?=base_url('uploads/thumb/').$goods['image']?>" target="_block"><img src="<?=base_url('uploads/thumb/').$goods['image']?>" alt=""></a>
+                                                
                                             </div>
                                         </td>
                                         <td class="am-text-middle">
-                                            <p>￥<?= $goods['goods_price'] ?></p>
+                                            <p><?=$order['currency']?> <?= $goods['goods_price'] ?></p>
                                             <p>×<?= $goods['total_num'] ?></p>
                                         </td>
                                         <?php if ($i === 1) : $goodsCount = count($order['goods']); ?>
                                             <td class="am-text-middle" rowspan="<?= $goodsCount ?>">
-                                                <p>￥<?= $order['pay_price'] ?></p>
-                                                <p class="am-link-muted">(含运费：￥<?= $order['express_price'] ?>)</p>
+                                                <p><?=$order['currency']?> <?= $order['pay_price'] ?></p>
+                                                <p class="am-link-muted">(含运费：<?=$order['currency']?> <?= $order['express_price'] ?>)</p>
                                             </td>
                                             <td class="am-text-middle" rowspan="<?= $goodsCount ?>">
                                                用户名
@@ -91,7 +94,11 @@
                                             <td class="am-text-middle" rowspan="<?= $goodsCount ?>">
                                                 <p>订单状态：
                                                 <?php if ($order['order_status'] == 10 ): ?>
+                                                    <?php if ($order['delivery_status'] == 10 ): ?>   
                                                         <span class="am-badge ">进行中</span>
+                                                    <?php else: ?>
+                                                        <span class="am-badge am-badge-success">已发货</span>
+                                                    <?php endif; ?>
                                                 <?php endif; ?>
                                                 <?php if ($order['order_status'] == 20 || $order['order_status'] == 21): ?>
                                                         <span class="am-badge am-badge-warning">已取消</span>
@@ -102,19 +109,23 @@
                                                 </p>
                                             </td>
                                             <td class="am-text-middle" rowspan="<?= $goodsCount ?>">
-                                                <!-- <div class="tpl-table-black-operation">
+                                                <div class="tpl-table-black-operation">
                                                         <a class="tpl-table-black-operation-green"
                                                            href="<?= site_url('admin/order/detail?order_id='.$order['order_id']) ?>">
                                                             订单详情</a>
                                                         <?php if ( $order['order_status']== 10): ?>
-                                                            <a class="tpl-table-black-operation"  href="<?= site_url('admin/order/sendorder?order_id ='.$order['order_id']) ?>">去发货</a>
+
+                                                            <?php if ( $order['pay_status']== 10): ?>
+                                                            <a class="tpl-table-black-operation item-pay"  data-id="<?= $order['order_id'] ?>" href="javascript:;" >手动付款</a>
+                                                            <?php elseif($order['delivery_status']== 10):?>
+                                                            <a class="tpl-table-black-operation"  href="<?= site_url('admin/order/detail?order_id='.$order['order_id']) ?>">去发货</a>
+                                                            <?php endif; ?>
                                                             <a href="javascript:;" class="item-delete tpl-table-black-operation-del"
                                                             data-id="<?= $order['order_id'] ?>">
                                                                 <i class="am-icon-trash"></i> 取消订单
                                                             </a>
                                                         <?php endif; ?>
-                                                    
-                                                </div> -->
+                                                </div>
                                             </td>
                                         <?php endif; ?>
                                     </tr>
@@ -126,6 +137,9 @@
                             <?php endif; ?>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="am-u-lg-12 am-cf">
+                        <div class="am-fr"><?= $links ?> </div>
                     </div>
                 </div>
             </div>
@@ -143,6 +157,8 @@
         var url = "<?=site_url('admin/order/delete') ?>";
         $('.item-delete').delete('order_id', url);
 
+        var pay_url ="<?=site_url('admin/order/toPay')?>";
+        $('.item-pay').topay('order_id', pay_url);
 
     });
 

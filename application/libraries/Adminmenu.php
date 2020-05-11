@@ -233,14 +233,22 @@ class Adminmenu {
                         'index' => 'admin/order/all_list',
                     ),
                     array(
+                        'name' => '待付款',
+                        'index' => 'admin/order/pay_list',
+                    ),
+                    array(
                         'name' => '待发货',
                         'index' => 'admin/order/delivery_list',
                     ),
                     array(
-                        'name' => '已完成',
-                        'index' => 'admin/order/complete_list',
-        
+                        'name' => '已发货',
+                        'index' => 'admin/order/send_list',
                     ),
+                    // array(
+                    //     'name' => '已完成',
+                    //     'index' => 'admin/order/complete_list',
+        
+                    // ),
                     array(
                         'name' => '已取消',
                         'index' => 'admin/order/cancel_list',
