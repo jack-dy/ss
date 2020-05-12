@@ -85,7 +85,7 @@ class Cart extends Home_Controller{
       $cart_option = $init['cart_option'];
       $calculation = $init['calculation'];
       $style = $init['style'];
-      $like = $this->goods_model->getAllGoods(0,6);
+      $like = $this->goods_model->getLike(0,6);
         foreach($like as $k=>$v){
           
           $like[$k]['image']=explode(';',$v['goods_images']);
@@ -156,6 +156,7 @@ class Cart extends Home_Controller{
 
     public function toOrder(){
       $init = $this->init();  
+      
       $this->load->model('order_model');
       if($this->order_model->createOrder($init)){
         //提交成功
@@ -171,6 +172,7 @@ class Cart extends Home_Controller{
 
 
     }
+
 
 
 

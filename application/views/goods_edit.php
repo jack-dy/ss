@@ -203,7 +203,14 @@
          });
 
 
-
+         $('.uploader-list').DDSort({
+            target: '.file-item',
+            delay: 100, // 延时处理，默认为 50 ms，防止手抖点击 A 链接无效
+            floatStyle: {
+                'border': '1px solid #ccc',
+                'background-color': '#fff'
+            }
+        });
         // 图片列表拖动
         // $('.uploader-list').DDSort({
         //     target: '.file-item',

@@ -31,16 +31,19 @@ class Goods extends Home_Controller{
       $rate = $this->rate_model->getRate();
       $category = $this->category_model->getCacheTree();
       $style = $this->style_model->getCacheTree();
-      $like = $this->goods_model->getAllGoods(0,6);
-      foreach($like as $k=>$v){
-        $like[$k]['image']=explode(';',$v['goods_images']);
-      }
+      
       $cart=$this->cart;
       $goods = $this->goods_model->getDetail($id);
       if(!empty($goods)){
         $goods['image']=explode(';',$goods['goods_images']);
         if(!empty($goods['goodsStyle_id'])){
           $goods['goodsStyle']=explode(',',$goods['goodsStyle_id']);
+        }
+        // echo $goods['category_id'];
+        // exit;
+        $like = $this->goods_model->getLike($goods['category_id'],6);
+        foreach($like as $k=>$v){
+          $like[$k]['image']=explode(';',$v['goods_images']);
         }
         
         $this->render('goods_detail',compact('cart','category','goods','like','rate','style','rign'));

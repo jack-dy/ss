@@ -37,6 +37,7 @@ class Order_model extends CI_Model{
                         ->join(self::TBL_ORDER_GOODS, 'order.order_id = order_goods.order_id', 'left')
                         ->where($this->transferDataType($dataType))
                         ->group_by('order.order_id')
+                        ->order_by('order.order_id','desc')
                         ->limit($listRows,$listRows*($page-1))
                         ->get()->result_array();
     }
@@ -56,8 +57,8 @@ class Order_model extends CI_Model{
          //记录订单信息
          $order_id = $this->add($init);
         //生成订单号
-        $set = array('order_no','A'.str_pad($order_id,3,'0',STR_PAD_RIGHT));
-        $this->update($set,compact('order_id'));
+        $order_no ='A'.str_pad($order_id,3,'0',STR_PAD_LEFT);
+         $this->update(compact('order_no'),compact('order_id'));
 
         // 保存订单商品信息
         $this->saveOrderGoods($order_id, $init);
@@ -128,12 +129,14 @@ class Order_model extends CI_Model{
         return $this->db->insert(self::TBL_ORDER_ADDRESS,$address);
     }
 
-    public function counts($query){
+    public function counts($dataType,$query){
         if(!empty($query)){
             $this->db->where($query);
         }
         
-        return $this->db->from(self::TBL_ORDER)->count_all_results();
+        return $this->db->from(self::TBL_ORDER)
+                        ->where($this->transferDataType($dataType))
+                        ->count_all_results();
     }
 
     
@@ -175,7 +178,7 @@ class Order_model extends CI_Model{
         $filter = array();
         switch ($dataType) {
             case 'delivery':
-                $filter = array('delivery_status' => 10);
+                $filter = array('delivery_status' => 10,'pay_status' => 20);
                 break;
             case 'complete':
                 $filter = array('order_status' => 30);

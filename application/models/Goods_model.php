@@ -61,6 +61,34 @@ class Goods_model extends CI_Model{
         return $list;
     }
 
+    //获取随机产品
+    public function getLike($category_id=0,$limit=0){
+        $where=array(
+            'goods_status'=>'10',
+            'is_delete'=>0
+         ); 
+         if($category_id!=0){
+            $where['category_id']=$category_id;
+        }
+        $list =$this->db->select('*, "goods" as type')->where($where)->get(self::TBL_GOODS)->result_array();
+        $lists = $this->shuffle_assoc($list);
+        $limit=$limit>count($lists)?count($lists):$limit;
+        $result=array();
+        for($i=0;$i<$limit;$i++){
+            $result[]=$lists[$i];  
+        }
+        return $result;
+    }
+    private function shuffle_assoc($list) {
+        if (!is_array($list)) return $list;
+        $keys = array_keys($list);
+        shuffle($keys);
+        $random = array();
+        foreach ($keys as $key)
+            $random[] = $list[$key];
+        return $random;
+   }
+
     
 
 

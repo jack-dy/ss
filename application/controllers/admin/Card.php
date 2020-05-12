@@ -71,5 +71,16 @@ class Card extends Admin_Controller{
       }
     }
 
+    //删除
+    public function delete(){
+      $card_id = $this->input->post('card_id');
+      $res = $this->card_model->remove($card_id);
+      if($res===true){
+        echo json_encode(array('code'=>1,'msg'=>'删除成功'));
+      }else{
+        echo json_encode(array('code'=>0,'msg'=>$res));
+      }
+    }
+
 
 }

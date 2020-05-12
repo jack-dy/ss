@@ -37,7 +37,7 @@
                 <span class="icon-bar middle-bar"></span>
             </span>
         </button>
-        <a class="cart_btn" href="<?=site_url('cart/index')?>"><i class="fa fa-shopping-cart"></i>
+        <a class="cart_btn" href="<?=site_url('cart/index')?>"><i class="fa fa-gift"></i>
         <?php $cart_num =count($cart);  if($cart_num):?>
         <span class="carnum"><?=$cart_num?></span>
         <?php endif;?>

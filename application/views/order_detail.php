@@ -141,6 +141,7 @@
                         </div>
                         <?php if ($detail['delivery_status'] == 10): ?>
                            <!-- 去发货 -->
+                                <a href="javascript:;"  name="send"></a>
                                 <form id="delivery" class="my-form am-form tpl-form-line-form" method="post"
                                       action="<?= site_url('admin/order/delivery?order_id='.$detail['order_id']) ?>">
                                     <div class="am-form-group">

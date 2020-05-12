@@ -118,7 +118,7 @@
                                                             <?php if ( $order['pay_status']== 10): ?>
                                                             <a class="tpl-table-black-operation item-pay"  data-id="<?= $order['order_id'] ?>" href="javascript:;" >手动付款</a>
                                                             <?php elseif($order['delivery_status']== 10):?>
-                                                            <a class="tpl-table-black-operation"  href="<?= site_url('admin/order/detail?order_id='.$order['order_id']) ?>">去发货</a>
+                                                            <a class="tpl-table-black-operation"  href="<?= site_url('admin/order/detail?order_id='.$order['order_id'].'#send') ?>">去发货</a>
                                                             <?php endif; ?>
                                                             <a href="javascript:;" class="item-delete tpl-table-black-operation-del"
                                                             data-id="<?= $order['order_id'] ?>">

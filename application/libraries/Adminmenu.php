@@ -233,7 +233,7 @@ class Adminmenu {
                         'index' => 'admin/order/all_list',
                     ),
                     array(
-                        'name' => '待付款',
+                        'name' => '待付款', 
                         'index' => 'admin/order/pay_list',
                     ),
                     array(
@@ -257,6 +257,24 @@ class Adminmenu {
                     
                 )
             ),
+            'setting' =>  array(
+                'name' => '设置',
+                'index' => 'admin/setting_express/index',
+                'submenu' =>  array(
+                    array(
+                        'name' => '物流',
+                        'index' => 'admin/setting_express/index',
+                        'uris' =>  array(
+                            'admin/setting_express/index',
+                            'admin/setting_express/add',
+                            'admin/setting_express/edit',
+                        ),
+                    ),
+                    
+                    
+                    
+                )
+            )
         );
         // $menu = array(
         //     'main'=>array(

@@ -65,4 +65,11 @@ class Card_model extends CI_Model{
                 ->update(self::TBL_CARD);
 	}
 
+	//删除
+	public function remove($card_id){
+		
+		//判断是否存在国家
+			return $this->db->where('card_id',$card_id)->delete(self::TBL_CARD);
+	}
+
 }

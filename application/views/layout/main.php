@@ -129,6 +129,7 @@
 
 <script src="<?=base_url('public/admin/js/app.js?v=time()') ?>"></script>
 <script src="<?=base_url('public/admin/js/file.library.js?v=time()') ?>"></script>
+<script src="<?=base_url('public/admin/js/diy.js?v=time()') ?>"></script>
 <!-- <script src="<?=base_url('public/admin/js/file2.library.js?v=time()') ?>"></script> -->
 </body>
 

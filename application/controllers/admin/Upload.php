@@ -50,7 +50,7 @@ class Upload extends CI_Controller{
         $image_width= $data['image_width'];
         $config['height'] =  $image_height;
         $config['width'] = $image_width;
-        if($image_height>$image_width && $image_height>$min){
+        if($image_height>=$image_width && $image_height>$min){
             $config['height'] = $min;
             $config['width'] = intval($image_width*$min/$image_height);
         }else if($image_height<$image_width && $image_width>$min){
@@ -69,7 +69,7 @@ class Upload extends CI_Controller{
         $min= 300;
         $config['height'] =  $image_height;
         $config['width'] = $image_width;
-        if($image_height>$image_width && $image_height>$min){
+        if($image_height>=$image_width && $image_height>$min){
             $config['height'] = $min;
             $config['width'] = intval($image_width*$min/$image_height);
         }else if($image_height<$image_width && $image_width>$min){

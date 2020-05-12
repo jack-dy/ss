@@ -75,7 +75,7 @@ class Order extends Admin_Controller{
             $query['order_no']=$order_no;
         }
         $config['base_url'] = current_url()."?".$type;
-        $config['total_rows'] = $this->order_model->counts($query);
+        $config['total_rows'] = $this->order_model->counts($dataType,$query);
         $config['per_page'] = 5;
         $config['cur_page'] = $page;
         $config['use_page_numbers'] = true;
@@ -127,7 +127,7 @@ class Order extends Admin_Controller{
         $post['delivery_status']=20;
         $post['delivery_time']=time();
         unset($post['express_id']);
-        if($this->order_model->update($post,compact($order_id))){
+        if($this->order_model->update($post,compact('order_id'))){
             redirect('admin/order/detail?order_id='.$order_id);
         }
     }
