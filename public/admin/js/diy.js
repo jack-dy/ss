@@ -6,20 +6,20 @@
         // diy数据
         , diyData = {
             items: {
-                page: {
-                    id: 'page',
-                    type: 'page',
-                    name: '页面设置',
-                    params: {
-                        name: '页面名称',
-                        title: '页面标题',
-                        share_title: '分享标题'
-                    },
-                    style: {
-                        titleTextColor: 'black',
-                        titleBackgroundColor: '#ffffff'
-                    }
-                }
+                // page: {
+                //     id: 'page',
+                //     type: 'page',
+                //     name: '页面设置',
+                //     params: {
+                //         name: '页面名称',
+                //         title: '页面标题',
+                //         share_title: '分享标题'
+                //     },
+                //     style: {
+                //         titleTextColor: 'black',
+                //         titleBackgroundColor: '#ffffff'
+                //     }
+                // }
             }
         }
 
@@ -44,13 +44,13 @@
                 },
                 data: [
                     {
-                        imgUrl: BASE_URL + 'assets/store/img/diy/banner_01.jpg',
-                        linkUrl: '',
+                        imgUrl: BASE_URL +'public/admin/img/diy/banner_01.jpg',
+                        //linkUrl: '',
                         advise: '建议尺寸750x360'
                     },
                     {
-                        imgUrl: BASE_URL + 'assets/store/img/diy/banner_02.jpg',
-                        linkUrl: '',
+                        imgUrl: BASE_URL + 'public/admin/img/diy/banner_02.jpg',
+                        //linkUrl: '',
                         advise: '建议尺寸750x360'
                     }
                 ]
@@ -64,12 +64,12 @@
                 },
                 data: [
                     {
-                        imgUrl: BASE_URL + 'assets/store/img/diy/banner_01.jpg',
+                        imgUrl: BASE_URL + 'public/admin/img/diy/banner_01.jpg',
                         imgName: 'image-1.jpg',
                         linkUrl: ''
                     },
                     {
-                        imgUrl: BASE_URL + 'assets/store/img/diy/banner_02.jpg',
+                        imgUrl: BASE_URL + 'public/admin/img/diy/banner_02.jpg',
                         imgName: 'banner-2.jpg',
                         linkUrl: ''
                     }
@@ -80,7 +80,7 @@
                 style: {background: '#ffffff', rowsNum: '4'},
                 data: [
                     {
-                        imgUrl: BASE_URL + 'assets/store/img/diy/navbar/icon-1.png',
+                        imgUrl: BASE_URL + 'public/admin/img/diy/navbar/icon-1.png',
                         imgName: 'icon-1.png',
                         linkUrl: '',
                         text: '按钮文字1',
@@ -88,7 +88,7 @@
                         advise: '建议尺寸100x100'
                     },
                     {
-                        imgUrl: BASE_URL + 'assets/store/img/diy/navbar/icon-2.png',
+                        imgUrl: BASE_URL + 'public/admin/img/diy/navbar/icon-2.png',
                         imgName: 'icon-2.jpg',
                         linkUrl: '',
                         text: '按钮文字2',
@@ -96,7 +96,7 @@
                         advise: '建议尺寸100x100'
                     },
                     {
-                        imgUrl: BASE_URL + 'assets/store/img/diy/navbar/icon-3.png',
+                        imgUrl: BASE_URL + 'public/admin/img/diy/navbar/icon-3.png',
                         imgName: 'icon-3.jpg',
                         linkUrl: '',
                         text: '按钮文字3',
@@ -104,7 +104,7 @@
                         advise: '建议尺寸100x100'
                     },
                     {
-                        imgUrl: BASE_URL + 'assets/store/img/diy/navbar/icon-4.png',
+                        imgUrl: BASE_URL + 'public/admin/img/diy/navbar/icon-4.png',
                         imgName: 'icon-4.jpg',
                         linkUrl: '',
                         text: '按钮文字4',
@@ -134,7 +134,7 @@
                 name: '视频组',
                 params: {
                     videoUrl: 'http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400',
-                    poster: BASE_URL + 'assets/store/img/diy/video_poster.png'
+                    poster: BASE_URL + 'public/admin/img/diy/video_poster.png'
                 },
                 style: {
                     paddingTop: '0',
@@ -145,7 +145,7 @@
                 name: '公告组',
                 params: {
                     text: '这里是第一条自定义公告的标题',
-                    icon: BASE_URL + 'assets/store/img/diy/notice.png'
+                    icon: BASE_URL + 'public/admin/img/diy/notice.png'
                 },
                 style: {
                     paddingTop: '4',
@@ -174,19 +174,19 @@
                 },
                 data: [
                     {
-                        imgUrl: BASE_URL + 'assets/store/img/diy/window/01.jpg',
+                        imgUrl: BASE_URL + 'public/admin/img/diy/window/01.jpg',
                         linkUrl: ''
                     },
                     {
-                        imgUrl: BASE_URL + 'assets/store/img/diy/window/02.jpg',
+                        imgUrl: BASE_URL + 'public/admin/img/diy/window/02.jpg',
                         linkUrl: ''
                     },
                     {
-                        imgUrl: BASE_URL + 'assets/store/img/diy/window/03.jpg',
+                        imgUrl: BASE_URL + 'public/admin/img/diy/window/03.jpg',
                         linkUrl: ''
                     },
                     {
-                        imgUrl: BASE_URL + 'assets/store/img/diy/window/04.jpg',
+                        imgUrl: BASE_URL + 'public/admin/img/diy/window/04.jpg',
                         linkUrl: ''
                     }
                 ],
@@ -216,22 +216,22 @@
                 defaultData: [
                     {
                         goods_name: '此处显示商品名称',
-                        image: BASE_URL + 'assets/store/img/diy/goods/01.jpg',
+                        image: BASE_URL + 'public/admin/img/diy/goods/01.jpg',
                         goods_price: '99.00'
                     },
                     {
                         goods_name: '此处显示商品名称',
-                        image: BASE_URL + 'assets/store/img/diy/goods/02.jpg',
+                        image: BASE_URL + 'public/admin/img/diy/goods/02.jpg',
                         goods_price: '99.00'
                     },
                     {
                         goods_name: '此处显示商品名称',
-                        image: BASE_URL + 'assets/store/img/diy/goods/03.jpg',
+                        image: BASE_URL + 'public/admin/img/diy/goods/03.jpg',
                         goods_price: '99.00'
                     },
                     {
                         goods_name: '此处显示商品名称',
-                        image: BASE_URL + 'assets/store/img/diy/goods/04.jpg',
+                        image: BASE_URL + 'public/admin/img/diy/goods/04.jpg',
                         goods_price: '99.00'
                     }
                 ],
@@ -239,13 +239,13 @@
                 data: [
                     {
                         goods_name: '此处显示商品名称',
-                        image: BASE_URL + 'assets/store/img/diy/goods/01.jpg',
+                        image: BASE_URL + 'public/admin/img/diy/goods/01.jpg',
                         goods_price: '99.00',
                         is_default: true
                     },
                     {
                         goods_name: '此处显示商品名称',
-                        image: BASE_URL + 'assets/store/img/diy/goods/02.jpg',
+                        image: BASE_URL + 'public/admin/img/diy/goods/02.jpg',
                         goods_price: '99.00',
                         is_default: true
                     }
@@ -438,10 +438,25 @@
                                 layer.msg('至少存在一个组件', {anim: 6});
                                 return false;
                             }
-                            $.post('', {data: JSON.stringify(diyData)}, function (result) {
-                                result.code === 1 ? $.show_success(result.msg, result.url)
-                                    : $.show_error(result.msg);
+                            console.log(JSON.stringify(diyData));
+                            //return false;
+                            $('#submit').ajaxSubmit({
+                                type: "post",
+                                dataType: "json",
+                                data: JSON.stringify(diyData),
+                                success: function (result) {
+                                    console.log(result);
+                                    result.code === 1 ? $.show_success(result.msg, result.url)
+                                        : $.show_error(result.msg);
+                                },
+                                error:function(e){
+                                    console.log(e);
+                                }
                             });
+                            // $.post('', {data: JSON.stringify(diyData)}, function (result) {
+                            //     result.code === 1 ? $.show_success(result.msg, result.url)
+                            //         : $.show_error(result.msg);
+                            // });
                         });
                     }
 
@@ -465,7 +480,8 @@
                         var dataItem = method.diyData.addItemData(itemId, 'banner');
                         $items.append(template('tpl_editor_data_item_image', dataItem));
                         // 选择图片
-                        method.editor.event.selectImages($items);
+                        //method.editor.event.selectImages($items);
+                        method.editor.event.upImage($items);
                     },
 
                     /**
@@ -539,7 +555,9 @@
                         // 添加子元素事件
                         this.itemAdd();
                         // 图片选择事件
-                        this.selectImages();
+                        // this.selectImages();
+                        //上传图片
+                         this.upImage();
                         // input滑块移动事件
                         this.inputRange();
                         // 颜色重置事件
@@ -673,15 +691,144 @@
                     /**
                      * 选择图片文件 (点击图片)
                      */
-                    selectImages: function () {
-                        // 选择图片
-                        this.$form.find('.j-selectImg').selectImages({
+                    // selectImages: function () {
+                    //     // 选择图片
+                    //     this.$form.find('.j-selectImg').selectImages({
+                    //         done: function (data, $addon) {
+                    //             $addon.children('img').attr('src', data[0].file_path);
+                    //             $addon.children('input').val(data[0].file_path).change();
+                    //         }
+                    //     });
+                    // },
+
+                    upImage: function () {
+
+                         this.$form.find('.j-selectImg').upImage({
                             done: function (data, $addon) {
-                                $addon.children('img').attr('src', data[0].file_path);
-                                $addon.children('input').val(data[0].file_path).change();
+                                console.log(data);
+                                console.log(data.file_name);
+                                $addon.parent().children('.webuploader-pick').children('img').attr('src', BASE_URL+"/uploads/thumb/"+data.file_name);
+                                $addon.children('input').val(BASE_URL+"/uploads/thumb/"+data.file_name).change();
                             }
                         });
                     },
+
+
+                    // upImage: function (option) {
+                    //     // 文件大小
+                    //     var maxSize = option.maxSize !== undefined ? option.maxSize : 10
+                    //         // 初始化Web Uploader
+                    //         , uploader = WebUploader.create({
+                    //             // 选完文件后，是否自动上传。
+                    //             auto: true,
+                    //             // 允许重复上传
+                    //             duplicate: true,
+                    //             // 文件接收服务端。
+                    //             server: STORE_URL + '/upload/image',
+                    //             // 选择文件的按钮。可选。
+                    //             // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                    //             pick: {
+                    //                 id: option.pick,
+                    //                 multiple: false
+                    //             },
+                    //             // 文件上传域的name
+                    //             fileVal: 'iFile',
+                    //             // 图片上传前不进行压缩
+                    //             compress: false,
+                    //             // 文件总数量
+                    //             // fileNumLimit: 1,
+                    //             // 文件大小2m => 2097152
+                    //             fileSingleSizeLimit: maxSize * 1024 * 1024,
+                    //             // 只允许选择图片文件。
+                    //             accept: {
+                    //                 title: 'Images',
+                    //                 extensions: 'gif,jpg,jpeg,bmp,png',
+                    //                 mimeTypes: 'image/*'
+                    //             },
+                    //             // 缩略图配置
+                    //             thumb: {
+                    //                 quality: 100,
+                    //                 crop: false,
+                    //                 allowMagnify: false
+                    //             },
+                    //             // 文件上传header扩展
+                    //             headers: {
+                    //                 'Accept': 'application/json, text/javascript, */*; q=0.01',
+                    //                 'X-Requested-With': 'XMLHttpRequest'
+                    //             }
+                    //         });
+                    //     //  验证大小
+                    //     uploader.on('error', function (type) {
+                    //         // console.log(type);
+                    //         if (type === "F_DUPLICATE") {
+                    //             // console.log("请不要重复选择文件！");
+                    //         } else if (type === "F_EXCEED_SIZE") {
+                    //             alert("文件大小不可超过" + maxSize + "m 哦！换个小点的文件吧！");
+                    //         }
+                    //     });
+            
+                    //     // 当有文件添加进来的时候
+                    //     uploader.on('fileQueued', function (file) {
+            
+                    //         var $uploadFile = $('#rt_' + file.source.ruid).parent()
+                    //             , $list = $uploadFile.next(option.list)
+                    //             , $li = $(
+                    //             '<div id="' + file.id + '" class="file-item thumbnail">' +
+                    //             '<img>' +
+                    //             //'<input type="hidden" name="' + $uploadFile.data('name') + '" value="">' +
+                    //             //'<input type="hidden" name="' + option.name + '" value="">' +
+                    //             '<input type="hidden" name="' + $uploadFile.attr('name') + '" value="">' +
+                    //             '<i class="iconfont icon-shanchu file-item-delete"></i>' +
+                    //             '</div>'
+                    //             ),
+                    //             //$img = $li.find('img'),
+                    //             $delete = $li.find('.file-item-delete');
+                    //         // 删除文件
+                    //         $delete.on('click', function () {
+                    //             uploader.removeFile(file);
+                    //             $delete.parent().remove();
+                    //         });
+                    //         // $list为容器jQuery实例
+                    //         $list.empty().append($li);
+                    //         // 创建缩略图
+                    //         // 如果为非图片文件，可以不用调用此方法。
+                    //         // thumbnailWidth x thumbnailHeight 为 100 x 100
+                    //         uploader.makeThumb(file, function (error, src) {
+                    //             if (error) {
+                    //                 $img.replaceWith('<span>不能预览</span>');
+                    //                 return;
+                    //             }
+                    //             //$img.attr('src', src);
+                    //         }, 1, 1);
+                    //     });
+                    //     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+                    //     uploader.on('uploadSuccess', function (file, response) {
+                    //         if (response.code === 1) {
+                    //             var $item = $('#' + file.id);
+                    //             $img = $item.find('img'),
+                    //             $img.attr('src',  response.data.file_path+response.data.file_name);
+                    //             $item.addClass('upload-state-done')
+                    //                 .children('input[type=hidden]').val(response.data.file_name);
+                    //         } else
+                    //             uploader.uploadError(file);
+                    //     });
+                    //     // 文件上传失败
+                    //     uploader.on('uploadError', function (file) {
+                    //         uploader.uploadError(file);
+                    //     });
+                    //     // 显示上传出错信息
+                    //     uploader.uploadError = function (file) {
+                    //         var $li = $('#' + file.id),
+                    //             $error = $li.find('div.error');
+                    //         // 避免重复创建
+                    //         if (!$error.length) {
+                    //             $error = $('<div class="error"></div>').appendTo($li);
+                    //         }
+                    //         $error.text('上传失败');
+                    //     };
+                    // },
+
+
 
                     /**
                      * 切换help内容
@@ -784,11 +931,11 @@
                     $.each(diyData.items, function (index, item) {
                         var tpl = template('tpl_diy_' + item.type, item);
                         if (item.type === 'page') {
-                            var $diyPage = function () {
-                                return $diyPhoneMain.prev('#diy-page');
-                            };
-                            $diyPage().prop('outerHTML', tpl);
-                            $diyPage().trigger('click');
+                            // var $diyPage = function () {
+                            //     return $diyPhoneMain.prev('#diy-page');
+                            // };
+                            // $diyPage().prop('outerHTML', tpl);
+                            // $diyPage().trigger('click');
                         } else {
                             mainHtml += tpl;
                         }

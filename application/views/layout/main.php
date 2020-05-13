@@ -19,7 +19,7 @@
     <script>
         //BASE_URL = '<?= isset($base_url) ? $base_url : '' ?>';
         //STORE_URL = '<?= isset($admin_url) ? $admin_url : '' ?>';
-        BASE_URL = '<?= base_url('')?> ';
+        BASE_URL = '<?= base_url('')?>';
         STORE_URL ='<?=site_url('admin')?>';
     </script>
 </head>
