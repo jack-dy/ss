@@ -207,8 +207,8 @@
                     display: 'list', // list; slide
                     column: '2',
                     show: {
-                        goodsName: '1',
-                        goodsPrice: '1',
+                        goodsName: '0',
+                        goodsPrice: '0',
                         linePrice: '1'
                     }
                 },
@@ -493,7 +493,7 @@
                         var dataItem = method.diyData.addItemData(itemId, 'imageSingle');
                         $items.append(template('tpl_editor_data_item_image', dataItem));
                         // 选择图片
-                        method.editor.event.selectImages($items);
+                        method.editor.event.upImage($items);
                     },
 
                     /**
@@ -505,7 +505,7 @@
                         var dataItem = method.diyData.addItemData(itemId, 'navBar');
                         $items.append(template('tpl_editor_data_item_navBar', dataItem));
                         // 选择图片
-                        method.editor.event.selectImages($items);
+                        method.editor.event.upImage($items);
                     },
 
                     /**
@@ -517,7 +517,7 @@
                         var dataItem = method.diyData.addItemData(itemId, 'window');
                         $items.append(template('tpl_editor_data_item_image', dataItem));
                         // 选择图片
-                        method.editor.event.selectImages($items);
+                        method.editor.event.upImage($items);
                     },
 
                     /**
@@ -707,126 +707,14 @@
                             done: function (data, $addon) {
                                 console.log(data);
                                 console.log(data.file_name);
-                                $addon.parent().children('.webuploader-pick').children('img').attr('src', BASE_URL+"/uploads/thumb/"+data.file_name);
-                                $addon.children('input').val(BASE_URL+"/uploads/thumb/"+data.file_name).change();
+                                $addon.find('img').attr('src', BASE_URL+"/uploads/thumb/"+data.file_name);
+                                $addon.find('input[type=hidden]').val(BASE_URL+"/uploads/"+data.file_name).change();
                             }
                         });
                     },
 
 
-                    // upImage: function (option) {
-                    //     // 文件大小
-                    //     var maxSize = option.maxSize !== undefined ? option.maxSize : 10
-                    //         // 初始化Web Uploader
-                    //         , uploader = WebUploader.create({
-                    //             // 选完文件后，是否自动上传。
-                    //             auto: true,
-                    //             // 允许重复上传
-                    //             duplicate: true,
-                    //             // 文件接收服务端。
-                    //             server: STORE_URL + '/upload/image',
-                    //             // 选择文件的按钮。可选。
-                    //             // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-                    //             pick: {
-                    //                 id: option.pick,
-                    //                 multiple: false
-                    //             },
-                    //             // 文件上传域的name
-                    //             fileVal: 'iFile',
-                    //             // 图片上传前不进行压缩
-                    //             compress: false,
-                    //             // 文件总数量
-                    //             // fileNumLimit: 1,
-                    //             // 文件大小2m => 2097152
-                    //             fileSingleSizeLimit: maxSize * 1024 * 1024,
-                    //             // 只允许选择图片文件。
-                    //             accept: {
-                    //                 title: 'Images',
-                    //                 extensions: 'gif,jpg,jpeg,bmp,png',
-                    //                 mimeTypes: 'image/*'
-                    //             },
-                    //             // 缩略图配置
-                    //             thumb: {
-                    //                 quality: 100,
-                    //                 crop: false,
-                    //                 allowMagnify: false
-                    //             },
-                    //             // 文件上传header扩展
-                    //             headers: {
-                    //                 'Accept': 'application/json, text/javascript, */*; q=0.01',
-                    //                 'X-Requested-With': 'XMLHttpRequest'
-                    //             }
-                    //         });
-                    //     //  验证大小
-                    //     uploader.on('error', function (type) {
-                    //         // console.log(type);
-                    //         if (type === "F_DUPLICATE") {
-                    //             // console.log("请不要重复选择文件！");
-                    //         } else if (type === "F_EXCEED_SIZE") {
-                    //             alert("文件大小不可超过" + maxSize + "m 哦！换个小点的文件吧！");
-                    //         }
-                    //     });
-            
-                    //     // 当有文件添加进来的时候
-                    //     uploader.on('fileQueued', function (file) {
-            
-                    //         var $uploadFile = $('#rt_' + file.source.ruid).parent()
-                    //             , $list = $uploadFile.next(option.list)
-                    //             , $li = $(
-                    //             '<div id="' + file.id + '" class="file-item thumbnail">' +
-                    //             '<img>' +
-                    //             //'<input type="hidden" name="' + $uploadFile.data('name') + '" value="">' +
-                    //             //'<input type="hidden" name="' + option.name + '" value="">' +
-                    //             '<input type="hidden" name="' + $uploadFile.attr('name') + '" value="">' +
-                    //             '<i class="iconfont icon-shanchu file-item-delete"></i>' +
-                    //             '</div>'
-                    //             ),
-                    //             //$img = $li.find('img'),
-                    //             $delete = $li.find('.file-item-delete');
-                    //         // 删除文件
-                    //         $delete.on('click', function () {
-                    //             uploader.removeFile(file);
-                    //             $delete.parent().remove();
-                    //         });
-                    //         // $list为容器jQuery实例
-                    //         $list.empty().append($li);
-                    //         // 创建缩略图
-                    //         // 如果为非图片文件，可以不用调用此方法。
-                    //         // thumbnailWidth x thumbnailHeight 为 100 x 100
-                    //         uploader.makeThumb(file, function (error, src) {
-                    //             if (error) {
-                    //                 $img.replaceWith('<span>不能预览</span>');
-                    //                 return;
-                    //             }
-                    //             //$img.attr('src', src);
-                    //         }, 1, 1);
-                    //     });
-                    //     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
-                    //     uploader.on('uploadSuccess', function (file, response) {
-                    //         if (response.code === 1) {
-                    //             var $item = $('#' + file.id);
-                    //             $img = $item.find('img'),
-                    //             $img.attr('src',  response.data.file_path+response.data.file_name);
-                    //             $item.addClass('upload-state-done')
-                    //                 .children('input[type=hidden]').val(response.data.file_name);
-                    //         } else
-                    //             uploader.uploadError(file);
-                    //     });
-                    //     // 文件上传失败
-                    //     uploader.on('uploadError', function (file) {
-                    //         uploader.uploadError(file);
-                    //     });
-                    //     // 显示上传出错信息
-                    //     uploader.uploadError = function (file) {
-                    //         var $li = $('#' + file.id),
-                    //             $error = $li.find('div.error');
-                    //         // 避免重复创建
-                    //         if (!$error.length) {
-                    //             $error = $('<div class="error"></div>').appendTo($li);
-                    //         }
-                    //         $error.text('上传失败');
-                    //     };
-                    // },
+                    
 
 
 
@@ -873,7 +761,7 @@
                         // 选择图片
                         $selectGoods.selectData({
                             title: '选择商品',
-                            uri: 'goods/lists&status=10',
+                            uri: 'goods/lists?status=10',
                             duplicate: false,
                             dataIndex: 'goods_id',
                             done: function (data) {

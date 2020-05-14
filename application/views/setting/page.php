@@ -20,10 +20,10 @@
                                     <p class="item-icon"><i class="iconfont icon-tupian1"></i></p>
                                     <p>单图组</p>
                                 </nav>
-                                <nav class="special" data-type="window">
+                                <!-- <nav class="special" data-type="window">
                                     <p class="item-icon"><i class="iconfont icon-newbilayout"></i></p>
                                     <p>图片橱窗</p>
-                                </nav>
+                                </nav> -->
                             </div>
                             <div class="title">商城组件</div>
                             <div class="navs-components am-cf">

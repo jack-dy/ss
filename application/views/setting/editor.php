@@ -554,10 +554,10 @@
                         <input data-switch="__choice" data-bind="params.source" type="radio" name="source"
                                value="choice" {{ params.source=== 'choice' ? 'checked' : '' }}> 手动选择
                     </label>
-                    <label class="am-radio-inline">
+                    <!-- <label class="am-radio-inline">
                         <input data-switch="__auto" data-bind="params.source" type="radio" name="source"
                                value="auto" {{ params.source=== 'auto' ? 'checked' : '' }}> 自动获取
-                    </label>
+                    </label> -->
                 </div>
             </div>
             <!--手动选择-->
@@ -570,7 +570,7 @@
                 </div>
             </div>
             <!--自动获取-->
-            <div class="switch-source __auto {{ params.source=== 'auto' ? '' : 'am-hide' }}">
+            <!-- <div class="switch-source __auto {{ params.source=== 'auto' ? '' : 'am-hide' }}">
                 <div class="am-form-group">
                     <label class="am-u-sm-4 am-form-label am-text-xs">商品分类 </label>
                     <div class="am-u-sm-8 am-u-end">
@@ -615,7 +615,7 @@
                                data-bind="params.auto.showNum" value="{{ params.auto.showNum }}">
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <!--分割线-->
         <hr data-am-widget="divider" style="" class="am-divider am-divider-dashed"/>

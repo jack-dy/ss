@@ -49,7 +49,7 @@
                 , closeBtn: 1
                 , shade: 0.3
                 , btn: ['确定', '取消']
-                , content: STORE_URL + '/data.' + this.options.uri
+                , content: STORE_URL + '/' + this.options.uri
                 , success: function (layero) {
                     // 初始化文件库弹窗
                     _this.initModal(layero);

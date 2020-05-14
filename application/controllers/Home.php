@@ -8,6 +8,7 @@ class Home extends Home_Controller{
     $this->load->model('goods_model');
     $this->load->model('card_model');
     $this->load->model('style_model');
+    $this->load->model('page_model');
     $this->cart = $this->session->userdata('cart')?:array();
     //$this->load->model('goods_model');
     }
@@ -26,6 +27,18 @@ class Home extends Home_Controller{
       //$list =$this->arraySort($list,'sort','asc');
       $this->render('index',compact('cart','list','category','style'));
         
+    }
+    public function aa(){
+      $cart=$this->cart;
+      $data = $this->page_model->detail();
+      $jsonData = $data['page_data'];
+      $style = $this->style_model->getCacheTree();
+      $category = $this->category_model->getCacheTree();
+      $item= json_decode($jsonData,true);
+      $page = $item['items'];
+      // print_r($page);
+      // exit;
+      $this->render('aa',compact('cart','page','category','style'));
     }
 }
 ?>

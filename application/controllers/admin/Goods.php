@@ -119,6 +119,34 @@ class Goods extends Admin_Controller{
         
         
     }
+    /**
+     * 商品列表
+     * @param null $status
+     * @return mixed
+     * @throws \think\exception\DbException
+     */
+    public function lists()
+    {
+      $page = $this->input->get('page')?: 1;
+        $status = $this->input->get('status');
+        $type = $_SERVER['QUERY_STRING'] ;
+        if(strpos($type,'&page')){
+          $type = strstr ( $_SERVER['QUERY_STRING'] ,  '&page' ,  true );
+        }
+         $config['base_url'] = current_url()."?".$type;
+         $config['total_rows'] = $this->goods_model->counts($status);
+        $config['per_page'] = 15;
+        $config['cur_page'] = $page;
+        $config['use_page_numbers'] = true;
+        $this->pagination->initialize($config);
+        $links = $this->pagination->create_links();
+
+        $list = $this->goods_model->getList($status, 0, 0,$page);
+        foreach($list as $k=>$v){
+          $list[$k]['image']=explode(';',$v['goods_images']);
+        }
+        return $this->load->view('goods_data_list.php',compact('list','links'));
+    }
 
 
 }

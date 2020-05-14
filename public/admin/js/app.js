@@ -353,7 +353,7 @@
             uploader.on('uploadSuccess', function (file, response) {
                 if (response.code === 1) {
                    //console.log(file);
-                   option.done(response.data, $('#rt_' + file.source.ruid));
+                   option.done(response.data, $('#rt_' + file.source.ruid).parent());
                     // var $item = $('#' + file.id);
                     // $img = $item.find('img'),
                     // $img.attr('src',  response.data.file_path+response.data.file_name);

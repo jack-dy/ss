@@ -532,4 +532,8 @@
       .work-diy .diy-editor .form-item-add:hover {
         background: #f9f9f9; }
 
+        .webuploader-pick{
+          border: none;
+          padding: 0;
+        }
 /*# sourceMappingURL=diy.css.map */
