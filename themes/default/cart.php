@@ -145,9 +145,9 @@
         
         //console.log(list);
     $(function (){
-        $.swiper({
-            id:'.gallery-top'
-        });
+        // $.swiper({
+        //     id:'.gallery-top'
+        // });
         $.sortable({
             id:'#sortable'
         });

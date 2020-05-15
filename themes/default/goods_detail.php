@@ -78,7 +78,8 @@
     $(function (){
         $.swiper({
             id:'.gallery-top',
-            number:<?=count($goods['image'])<3?:5?>
+            number:<?=count($goods['image'])<3?:5?>,
+            thumbs:1
         });
         $.sortable({
             id:'#sortable'

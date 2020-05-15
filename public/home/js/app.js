@@ -25,20 +25,23 @@
                 nextButton: '.swiper-button-next',
                 prevButton: '.swiper-button-prev',
                 spaceBetween: 10,
-                //loop:true,
+                loop:true,
                 loopedSlides: 5, //looped slides should be the same     
             });
-            // var galleryThumbs = new Swiper('.gallery-thumbs', {
-            //     spaceBetween: 10,
-            //     slidesPerView: option.number,
-            //     touchRatio: 0.2,
-            //     loop:true,
-            //     loopedSlides: 5, //looped slides should be the same
-            //     slideToClickedSlide: true
-            // });
-
-            galleryTop.params.control = galleryThumbs;
-            //galleryThumbs.params.control = galleryTop;
+            if(option.thumbs!=undefined){
+                var galleryThumbs = new Swiper('.gallery-thumbs', {
+                    spaceBetween: 10,
+                    slidesPerView: option.number,
+                    touchRatio: 0.2,
+                    loop:true,
+                    loopedSlides: 5, //looped slides should be the same
+                    slideToClickedSlide: true
+                });
+    
+                galleryTop.params.control = galleryThumbs;
+                galleryThumbs.params.control = galleryTop;
+            }
+            
         },
 
         /**

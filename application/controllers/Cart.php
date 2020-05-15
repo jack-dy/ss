@@ -173,6 +173,13 @@ class Cart extends Home_Controller{
 
     }
 
+    public function test(){
+      $init = $this->init();  
+      $this->load->model('email_model');
+      $body =$this->email_model->test($init);
+      print_r($body);
+    }
+
 
 
 

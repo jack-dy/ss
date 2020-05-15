@@ -270,7 +270,14 @@ class Adminmenu {
                             'admin/setting_express/edit',
                         ),
                     ),
-                    
+                    array(
+                        'name' => '邮件设置',
+                        'index' => 'admin/setting_email/index',
+                    ),
+                    array(
+                        'name' => '首页设置',
+                        'index' => 'admin/setting_page/index',
+                    ),
                     
                     
                 )

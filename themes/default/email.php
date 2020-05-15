@@ -1,63 +1,12 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-/**
- *  admin 模型，管理后台管理员
- */
-
-class Email_model extends CI_Model{
-
-    const TBL_EMAIL = 'email';
-    public function __construct() {
-		parent::__construct();
-		$this->load->library('my_cache');
-    }
-    
-    public function detail(){
-        if(!$this->my_cache->get("email")){
-            $data =$this->db->get(self::TBL_EMAIL)->row_array();
-            $this->my_cache->save("email", $data,30*60);
-            return $data;
-        }
-        return $this->my_cache->get("email");
-    }
-
-    public function edit($data){
-        $this->my_cache->delete('email');
-		return $this->db
-				->set($data)
-				->update(self::TBL_EMAIL);
-    }
-
-    public function sendEmail($init){
-       
-        $config_email = $this->detail();
-
-    //   $this->config->load('email', TRUE);
-    //   $config_email = $this->config->item('email');
-      $this->load->library('email'); 
-      $this->email->initialize($config_email); 
-      $this->email->from($config_email['smtp_user']); 
-      $this->email->to($init['cart_option']['cart']['email']); 
-      if(!empty($config_email['emails'])){
-        $bcc =explode("\n",$config_email['emails']);
-        foreach($bcc as $v){
-        }
-        $this->email->bcc($bcc);
-    }
-      $this->email->subject("order-".$init['cart_option']['cart']['name']); 
-      $this->email->mailtype='html';
-      $this->email->message($this->body($init)); 
-      $this->email->send(); 
-    }
-
-    private function body($init){
-        $list =$init['list'];
-      $calculation =$init['calculation'];
-      $sel_rate = $init['sel_rate'];
-        $cart_option = $init['cart_option'];
-        $country=$init['country'];
-
-        $body='<style>a{text-decoration:none}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    a{text-decoration:none}
         li{list-style:none}
         .wap{width:100%}
         .area{margin:0 auto;padding:0 12px}
@@ -103,9 +52,10 @@ class Email_model extends CI_Model{
         @media screen and (max-width:600px){.area{width:100%;margin:0 auto;padding:0 12px}
         
         }
-        </style>';
-
-        $body.='<div class="w1000 cart_list cart_title">
+    </style>
+</head>
+<body>
+    <div class="w1000 cart_list cart_title">
 		<h3> Order </h3>
         </div>
         <div class="w1000 cart_list">
@@ -117,64 +67,50 @@ class Email_model extends CI_Model{
                 <td>Unit Price</td>
                 <td>Qty</td>
                 <td>Subtotal</td>
-            </tr>';
-                foreach($list as $item){
-                    $body.='<tr>
-                            <td class="pd_img"><img  src="'.base_url('uploads/thumb/').$item['image'][0].'" /></td>
-                            <td class="pd_name">'.$item['goods_name'].'</td>
-                            <td class="pd_price">'.$sel_rate['name']." ".sprintf("%01.2f",$sel_rate['rate']*$item['goods_price']).'</td>
+            </tr>
+
+                <?php foreach($list as $item):?>
+                    <tr>
+                            <td class="pd_img"><img  src="'.base_url('uploads/thumb/').$item['image'][0]?>" /></td>
+                            <td class="pd_name"><?=$item['goods_name']?></td>
+                            <td class="pd_price"><?=$sel_rate['name']." ".sprintf("%01.2f",$sel_rate['rate']*$item['goods_price'])?></td>
                             <td class="pd_qty"><div class="pd_qty_cl">1</div></td>
-                            <td class="pd_single_totle">'.$sel_rate['name']." ".sprintf("%01.2f",$sel_rate['rate']*$item['goods_price']).'</td>
+                            <td class="pd_single_totle"><?=$sel_rate['name']." ".sprintf("%01.2f",$sel_rate['rate']*$item['goods_price'])?></td>
                         </tr>';
-                }   
-                $body.='</table>
-                    <div class="Cart_totle">Cart subtotal : <span>'.$sel_rate['name'].' '.$calculation['subototal'].'</span></div>
-                        <div class="all_postal"> Postage : <span>'.$sel_rate['name'].' '.$calculation['postage'].'</span></div>
-                        <div class="all_totle">Grand Total amount : <span>'.$sel_rate['name'].' '.$calculation['amount'].'</span></div>
+                <?php endforeach;?>  
+                </table>
+                    <div class="Cart_totle">Cart subtotal : <span><?=$sel_rate['name']?> <?=$calculation['subototal']?></span></div>
+                        <div class="all_postal"> Postage : <span><?=$sel_rate['name']?> <?=$calculation['postage']?></span></div>
+                        <div class="all_totle">Grand Total amount : <span><?=$sel_rate['name']?> <?=$calculation['amount']?></span></div>
                     </div>
                     <div class="user_area reconfirm_area">
                     <div class="user_title">Contact information</div>
                         <dl class="mds">
                             <dt>Country </dt>
-                            <dd>'.$country[$cart_option['cart']['country']]['cy_name_en'].'</dd>
+                            <dd><?=$country[$cart_option['cart']['country']]['cy_name_en']?></dd>
                         </dl>
                         <dl class="mds">
                             <dt>Name </dt>
-                            <dd>'.$cart_option['cart']['name'].'</dd>
+                            <dd><?=$cart_option['cart']['name']?></dd>
                         </dl>
                         <dl class="mds">
                             <dt>Shipping address </dt>
-                            <dd style="height:auto;">'.$cart_option['cart']['address'].'</dd>
+                            <dd style="height:auto;"><?=$cart_option['cart']['address']?></dd>
                         </dl>
                         <dl class="mds">
                             <dt>Email </dt>
-                            <dd>'.$cart_option['cart']['email'].'</dd>
+                            <dd><?=$cart_option['cart']['email']?></dd>
                         </dl>
                         <dl class="mds">
                             <dt>Phone </dt>
-                            <dd>'.$cart_option['cart']['phone'].'</dd>
+                            <dd><?=$cart_option['cart']['phone']?></dd>
                         </dl>
                         <dl class="mds">
                             <dt>Postal code </dt>
-                            <dd>'.$cart_option['cart']['postal'].'</dd>
+                            <dd><?=$cart_option['cart']['postal']?></dd>
                         </dl>
 
-                    </div>';
-
-        
-        return $body;
-    }
-
-
-    public function test($init){
-        $ci = &get_instance();
-
-        $list =$init['list'];
-        $calculation =$init['calculation'];
-        $sel_rate = $init['sel_rate'];
-        $cart_option = $init['cart_option'];
-        $country=$init['country'];
-        $body = $ci->load->view('email.php', compact('list','calculation','sel_rate', 'cart_option', 'country'), TRUE);
-        return $body;
-    }
-}
+                    </div>
+    
+</body>
+</html>

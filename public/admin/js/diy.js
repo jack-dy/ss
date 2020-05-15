@@ -438,9 +438,9 @@
                                 layer.msg('至少存在一个组件', {anim: 6});
                                 return false;
                             }
-                            console.log(JSON.stringify(diyData));
                             //return false;
-                            $('#submit').ajaxSubmit({
+                            //$('#submit').ajaxSubmit({
+                            $.ajax({
                                 type: "post",
                                 dataType: "json",
                                 data: JSON.stringify(diyData),

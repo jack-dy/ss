@@ -630,7 +630,7 @@
                 </button>
             </div>
         </div>
-        <div class="am-form-group">
+        <!-- <div class="am-form-group">
             <label class="am-u-sm-4 am-form-label am-text-xs">显示类型 </label>
             <div class="am-u-sm-8 am-u-end">
                 <label class="am-radio-inline">
@@ -655,8 +655,8 @@
                            value="3" {{ style.column=== '3' ? 'checked' : '' }}> 三列
                 </label>
             </div>
-        </div>
-        <div class="am-form-group">
+        </div> -->
+        <!-- <div class="am-form-group">
             <label class="am-u-sm-4 am-form-label am-text-xs">显示内容 </label>
             <div class="am-u-sm-8 am-u-end">
                 <label class="am-checkbox-inline">
@@ -668,7 +668,7 @@
                            value="1" {{ style.show.goodsPrice=== '1' ? 'checked' : '' }}> 商品价格
                 </label>
             </div>
-        </div>
+        </div> -->
     </form>
 </script>
 
