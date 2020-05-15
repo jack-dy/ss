@@ -27,7 +27,7 @@
     <div class="mask"></div>
 <nav class="navbar navbar-custom navbar-fixed-top">
         <!-- Image Logo -->
-        <a class="navbar-brand logo-image" href="<?=site_url('home/index')?>"><img src="<?=base_url('public/images/logo.svg')?>" alt="alternative"></a>
+        <a class="navbar-brand logo-image" href="<?=site_url('home/index2')?>"><img src="<?=base_url('public/images/logo.svg')?>" alt="alternative"></a>
         <!-- Mobile Menu Toggle Button -->
         
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -47,7 +47,7 @@
         <!-- <div class="collapse navbar-collapse" id="navbarsExampleDefault"> -->
             <ul class="nav navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link page-scroll" href="<?=site_url('home/index')?>">Home </a>
+                        <a class="nav-link page-scroll" href="<?=site_url('home/index2')?>">Home </a>
                     </li>
                     <?php foreach($category as $item):?>
                     <li class="nav-item">

@@ -13,7 +13,7 @@ class Home extends Home_Controller{
     //$this->load->model('goods_model');
     }
 
-    public function index(){
+    public function index2(){
       
       $cart=$this->cart;
       $goods = $this->goods_model->getAllGoods();
@@ -28,7 +28,7 @@ class Home extends Home_Controller{
       $this->render('index',compact('cart','list','category','style'));
         
     }
-    public function aa(){
+    public function index(){
       $cart=$this->cart;
       $data = $this->page_model->detail();
       $jsonData = $data['page_data'];

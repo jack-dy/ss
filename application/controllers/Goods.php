@@ -48,7 +48,7 @@ class Goods extends Home_Controller{
         
         $this->render('goods_detail',compact('cart','category','goods','like','rate','style','rign'));
       }else{
-        redirect('home/index');
+        redirect('home/index2');
       }
       
       

@@ -95,13 +95,13 @@
                 <div class="empty_box">
                     <div class="col-md-8 col-md-offset-2 back_index">
                     <p>Empty shopping cart Oh ~, to see the right merchandise it ~</p>
-                    <a href="<?=site_url('home/index')?>" class="to_shop_list">Go shopping &gt;</a>
+                    <a href="<?=site_url('home/index2')?>" class="to_shop_list">Go shopping &gt;</a>
                     </div>
                 </div>
                 <?php else:?>
                     <div class="col-md-8 col-md-offset-2 back_index">
                     <p>Empty shopping cart Oh ~, to see the right merchandise it ~</p>
-                    <a href="<?=site_url('home/index')?>" class="to_shop_list">Go shopping &gt;</a>
+                    <a href="<?=site_url('home/index2')?>" class="to_shop_list">Go shopping &gt;</a>
                     </div>
                 <?php endif;?>
             </div>
